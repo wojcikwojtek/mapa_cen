@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaRegUser} from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 
 const Nav = () => {
@@ -7,12 +8,11 @@ const Nav = () => {
 <nav>
     <h1>Mapa Cen</h1>
     <div className='userPanel'>
-    <div className='userIcon'>
+   <Link to={'/auth/login'}> <div className='userIcon'>
       <FaRegUser size={40} color="black" />
-    </div>
+    </div></Link>
     <h2>Gosc</h2>
     </div>
-    
 </nav>
   )
 }

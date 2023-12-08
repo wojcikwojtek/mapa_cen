@@ -6,7 +6,7 @@ import LoginForm from './LoginForm'
 const Main = () => {
   return (
     <main>
-        <LoginForm/>
+        {/* <LoginForm/> */}
     </main>
   )
 }
