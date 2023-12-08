@@ -11,8 +11,27 @@ body {
 }
 
 nav{
-  height:20vh;
-  background-color: aqua;
+  height:10vh;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.userPanel{
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+.userIcon{
+  margin-right: 20px;
+}
+
+nav h1{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 
 main{
