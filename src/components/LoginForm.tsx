@@ -11,10 +11,7 @@ const LoginForm = () => {
   const apiClient=new APIClient<string>('/login');
 
     const {register,handleSubmit, formState:{errors}}=useForm<SignInData>();
-    const onSubmit=(data: FieldValues)=>{
-      apiClient.get(1);//tu ma byc endpoin na login
-      console.log(data)
-    };
+    const onSubmit=(data: FieldValues)=>console.log(data);
 
   return (
     <>
