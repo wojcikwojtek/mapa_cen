@@ -17,7 +17,8 @@ const LoginForm = () => {
     };
 
   return (
-    <>
+  <>
+    <div className = "loginForm">
     <h1>Zaloguj się</h1>
     <form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="login">Login:</label><br/>
@@ -30,7 +31,8 @@ const LoginForm = () => {
 
       <a href=''>Zarejestruj się</a>
     </form>
-    </>
+    </div>
+  </>
   )
 }
 

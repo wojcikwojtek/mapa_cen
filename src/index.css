@@ -36,5 +36,47 @@ nav h1{
 
 main{
   height:80vh;
-  background-color: green;
+  background-color: bisque;
+}
+
+loginForm h1 {
+  align-items: center;
+}
+
+.loginForm{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: medium solid black;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: large;
+}
+
+.registerForm{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: medium solid black;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: large;
+}
+
+input {
+  width: 100%;
+  padding: 3px 10px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input:focus {
+  border: 2px solid #555;
+}
+
+input[type=submit] {
+  background-color: #3cbc8d;
+  color: white;
 }
