@@ -3,6 +3,7 @@ import React from "react";
 const RegisterForm = () => {
     return (
         <>
+        <div className = "registerForm">
         <h1>Zarejestruj się</h1>
         <form action="">
             <label htmlFor="login">Login:</label><br/>
@@ -15,6 +16,7 @@ const RegisterForm = () => {
             <input type="password" id="repeat_password" name="repeat_password"></input><br/>
             <input type="submit" value="Zarejestruj się"></input>
         </form>
+        </div>
         </>
     )
 }
