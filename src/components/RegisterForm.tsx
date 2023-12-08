@@ -21,7 +21,7 @@ const RegisterForm = () => {
 
     return (
         <>
-        <div className = "registerForm">
+        <div className = "form">
         <h1>Zarejestruj się</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="login">Login:</label><br/>
@@ -36,7 +36,7 @@ const RegisterForm = () => {
             <label htmlFor="repeat_password">Powtórz hasło:</label><br/>
             <input {...register('repeat_password',{required: true,minLength:3})} type="password" id="repeat_password" name="repeat_password"></input><br/>
             {errors.repeat_password &&<p>zle powtorzone haslo</p>}
-            <input type="submit" value="Zarejestruj się"></input>
+            <input type="submit"  value="Zarejestruj się"></input>
         </form>
         </div>
         </>

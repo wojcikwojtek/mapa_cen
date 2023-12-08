@@ -8,9 +8,9 @@ interface UserStore{
 }
 
 const useUserStore=create<UserStore>(set=>({
-    username:"gosc",
+    username:"gość",
     setUsername:(newUsername)=>set(()=>({username: newUsername})),
-    reset:()=>set(()=>({username:"gosc"}))
+    reset:()=>set(()=>({username:"gość"}))
 }));
 
 export default useUserStore;

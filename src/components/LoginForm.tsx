@@ -25,7 +25,7 @@ const LoginForm = () => {
 
   return (
   <>
-    <div className = "loginForm">
+    <div className = "form">
     <h1>Zaloguj się</h1>
     <form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="login">Login:</label><br/>
@@ -34,7 +34,7 @@ const LoginForm = () => {
       <label htmlFor="password">Password:</label><br/>
       <input  {...register('password',{required: true,minLength:3})}  type="password" id="password" name="password"></input><br/>
       {errors.password &&<p>zle haslo</p>}
-      <input type="submit" value="Zaloguj się"></input><br/>
+      <input type="submit"   value="Zaloguj się"></input><br/>
 
       <Link to={'/auth/register'}>Zarejestruj się
       </Link>
