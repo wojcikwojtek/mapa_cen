@@ -1,13 +1,13 @@
 import React from 'react'
-import Form from './Form'
+import LoginForm from './LoginForm'
+import RegisterForm from './RegisterForm'
 
 
 const Main = () => {
   return (
     <main>
-        <Form/>
-        Main
-        </main>
+        <LoginForm/>
+    </main>
   )
 }
 
