@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+nav{
+  height:20vh;
+  background-color: aqua;
+}
+
+main{
+  height:80vh;
+  background-color: green;
+}
