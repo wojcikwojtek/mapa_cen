@@ -7,7 +7,6 @@ import RegisterForm from './RegisterForm'
 const Main = () => {
   return (
     <main>
-        {/* <LoginForm/> */}
     </main>
   )
 }

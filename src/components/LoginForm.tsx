@@ -1,6 +1,8 @@
 import React from 'react'
 import { FieldValues, useForm } from 'react-hook-form';
 import APIClient from '../services/api-client';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import useUserStore from '../store';
 
 interface SignInData {
     login: string;
@@ -8,12 +10,17 @@ interface SignInData {
 }
 
 const LoginForm = () => {
-  const apiClient=new APIClient<string>('/login');
+  const navigate=useNavigate();
+  const userStore=useUserStore();
+  // const apiClient=new APIClient<string>('/login');
 
     const {register,handleSubmit, formState:{errors}}=useForm<SignInData>();
     const onSubmit=(data: FieldValues)=>{
-      apiClient.get(1);//tu ma byc na endpoint login do backenfu request
+      
+      // apiClient.get(1);//tu ma byc na endpoint login do backenfu request
       console.log(data)
+      userStore.setUsername(data.login)
+      navigate("/")
     };
 
   return (
@@ -29,7 +36,8 @@ const LoginForm = () => {
       {errors.password &&<p>zle haslo</p>}
       <input type="submit" value="Zaloguj się"></input><br/>
 
-      <a href=''>Zarejestruj się</a>
+      <Link to={'/auth/register'}>Zarejestruj się
+      </Link>
     </form>
     </div>
   </>
