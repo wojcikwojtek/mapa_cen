@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form';
 import APIClient from '../services/api-client';
 import { Link,  useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ interface SignInData {
 
 const LoginForm = () => {
   const navigate=useNavigate();
+  const [loginError, setLoginError] = useState(false);
   const userStore=useUserStore();
   const apiClient=new APIClient();
 
@@ -22,13 +23,13 @@ const LoginForm = () => {
         localStorage.setItem("token",resData.accessToken);
         userStore.setToken(resData.accessToken);
         localStorage.setItem("userEmail",data.login);
-        userStore.setEmail(data.login)
+        userStore.setEmail(data.login);
+        navigate("/");
       })
       .catch(err=>{
         console.log("error"+err);
+        setLoginError(true);
       })
-      
-      navigate("/")
     };
 
     
@@ -40,12 +41,12 @@ const LoginForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="login">Login:</label><br/>
       <input {...register('login',{required: true,minLength:3})}  type="text" id="login" name="login"></input><br/>
-      {errors.login &&<p>zly login</p>}
+      {errors.login &&<p>wprowadź login </p>}
       <label htmlFor="password">Password:</label><br/>
       <input  {...register('password',{required: true,minLength:3})}  type="password" id="password" name="password"></input><br/>
-      {errors.password &&<p>zle haslo</p>}
+      {errors.password &&<p>wprowadź hasło</p>}
       <input type="submit"   value="Zaloguj się"></input><br/>
-
+      {loginError &&<p>zly login lub hasło</p>}
       <Link to={'/auth/register'}>Zarejestruj się
       </Link>
     </form>

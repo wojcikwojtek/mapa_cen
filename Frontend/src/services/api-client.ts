@@ -15,8 +15,8 @@ class APIClient{
   
   }
 
-  register=(login:string,password:string)=>{
-      return axiosInstance.post("/register",{email:login,password:password}).then(res=>res.data);
+  register=(login:string,email:string,password:string)=>{
+      return axiosInstance.post("/register",{login:login,email:email,password:password}).then(res=>res.data);
   }
 
   login=(login:string,password:string)=>{
