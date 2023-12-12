@@ -41,12 +41,12 @@ const LoginForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="login">Login:</label><br/>
       <input {...register('login',{required: true,minLength:3})}  type="text" id="login" name="login"></input><br/>
-      {errors.login &&<p>wprowadź login </p>}
+      {errors.login &&<p style={{color:'red'}}>wprowadź login </p>}
       <label htmlFor="password">Password:</label><br/>
       <input  {...register('password',{required: true,minLength:3})}  type="password" id="password" name="password"></input><br/>
-      {errors.password &&<p>wprowadź hasło</p>}
+      {errors.password &&<p  style={{color:'red'}}>wprowadź hasło</p>}
       <input type="submit"   value="Zaloguj się"></input><br/>
-      {loginError &&<p>zly login lub hasło</p>}
+      {loginError &&<p  style={{color:'red'}}>zly login lub hasło</p>}
       <Link to={'/auth/register'}>Zarejestruj się
       </Link>
     </form>
