@@ -2,18 +2,15 @@ import { create } from "zustand";
 
 
 interface UserStore{
-  email:string;
-  token?:string;
-  setEmail:(email:string)=>void;
-  setToken:(token:string)=>void;
+  username:string;
+  setUsername:(username:string)=>void;
   reset:()=>void;
 }
 
 const useUserStore=create<UserStore>(set=>({
-    email:"gość",
-    setEmail:(email)=>set(()=>({email: email})),
-    setToken:(token)=>set(()=>({token: token})),
-    reset:()=>set(()=>({email:"gość",token:undefined}))
+    username:"gość",
+    setUsername:(username)=>set(()=>({username: username})),
+    reset:()=>set(()=>({username:"gość"}))
 }));
 
 export default useUserStore;

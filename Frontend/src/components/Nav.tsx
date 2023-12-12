@@ -9,21 +9,15 @@ const Nav = () => {
   const [showPopUp,setShowPopUp]=useState('0');
 
 
-    if(userStore.token==undefined){
-      const email =localStorage.getItem("userEmail");
-      if(email!=null){
-        userStore.setEmail(email);
-      }
-      
-      const jwt=localStorage.getItem("token");
-      if(jwt!=null){
-        userStore.setToken(jwt);
+    if(userStore.username=="gość"){
+      const username =localStorage.getItem("username");
+      if(username!=null){
+        userStore.setUsername(username);
       }
     }
 
   const handleLogout=()=>{
-    localStorage.removeItem("token");
-    localStorage.removeItem("userEmail");
+    localStorage.removeItem("username");
     setShowPopUp('0');
     userStore.reset();
   }

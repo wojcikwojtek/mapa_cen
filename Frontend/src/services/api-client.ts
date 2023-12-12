@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export interface AuthResponse{
-  accessToken:string;
+  authResposne:string;
 }
 
 export const axiosInstance= axios.create({
@@ -16,11 +16,11 @@ class APIClient{
   }
 
   register=(login:string,email:string,password:string)=>{
-      return axiosInstance.post("/register",{login:login,email:email,password:password}).then(res=>res.data);
+      return axiosInstance.post("/register",{username:login,email:email,password:password}).then(res=>res.data);
   }
 
   login=(login:string,password:string)=>{
-    return axiosInstance.post("/login",{email:login,password:password}).then(res=>res.data);
+    return axiosInstance.post("/login",{username:login,password:password}).then(res=>res.data);
 }
 
   

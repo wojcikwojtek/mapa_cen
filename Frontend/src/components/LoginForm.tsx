@@ -18,17 +18,18 @@ const LoginForm = () => {
     const {register,handleSubmit, formState:{errors}}=useForm<SignInData>();
     const onSubmit=(data: FieldValues)=>{
       apiClient.login(data.login,data.password)
-      .then(resData=>{
-        console.log(resData.accessToken);
-        localStorage.setItem("token",resData.accessToken);
-        userStore.setToken(resData.accessToken);
-        localStorage.setItem("userEmail",data.login);
-        userStore.setEmail(data.login);
+      .then(res=>{
+        if(res.authResposne!="unauthorized"){
+          userStore.setUsername(res.authResposne);
+        localStorage.setItem("username",data.authResposne);
         navigate("/");
+        }else{
+          setLoginError(true);
+        }
       })
       .catch(err=>{
         console.log("error"+err);
-        setLoginError(true);
+     
       })
     };
 
@@ -46,7 +47,7 @@ const LoginForm = () => {
       <input  {...register('password',{required: true,minLength:3})}  type="password" id="password" name="password"></input><br/>
       {errors.password &&<p  style={{color:'red'}}>wprowadź hasło</p>}
       <input type="submit"   value="Zaloguj się"></input><br/>
-      {loginError &&<p  style={{color:'red'}}>zly login lub hasło</p>}
+      {loginError && <p  style={{color:'red'}}>zly login lub hasło</p>}
       <Link to={'/auth/register'}>Zarejestruj się
       </Link>
     </form>
