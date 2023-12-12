@@ -33,9 +33,9 @@ const RegisterForm = () => {
             <label htmlFor="password">Hasło:</label><br/>
             <input {...register('password',{required: true,minLength:3,pattern:{
           value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
-          message: "hasło musi mieć conajmniej 8 znaków i zawierać małą, duża literę oraz znak nienumeryczny"
+          message: "hasło musi mieć conajmniej 8 znaków i zawierać małą oraz duża literę"
         }})} type="password" id="password" name="password"></input><br/>
-            {errors.password &&<p style={{color:'red'}}>hasło musi mieć conajmniej 8 znaków i zawierać małą, duża literę oraz znak nienumeryczny</p>}
+            {errors.password &&<p style={{color:'red'}}>hasło musi mieć conajmniej 8 znaków i zawierać małą oraz duża literę</p>}
             <label htmlFor="repeat_password">Powtórz hasło:</label><br/>
             <input {...register('repeat_password',{
           required: true,

@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export interface AuthResponse{
-  authResposne:string;
+  username:string;
+  authorized:boolean;
 }
 
 export const axiosInstance= axios.create({

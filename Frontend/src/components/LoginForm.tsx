@@ -19,10 +19,11 @@ const LoginForm = () => {
     const onSubmit=(data: FieldValues)=>{
       apiClient.login(data.login,data.password)
       .then(res=>{
-        if(res.authResposne!="unauthorized"){
-          userStore.setUsername(res.authResposne);
-        localStorage.setItem("username",data.authResposne);
-        navigate("/");
+        if(res.authorized == true){
+          userStore.setUsername(data.login);
+          localStorage.setItem("username",data.login);
+          console.log("jest git");
+          navigate("/");
         }else{
           setLoginError(true);
         }
