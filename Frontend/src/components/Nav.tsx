@@ -1,16 +1,29 @@
-import React, { useState } from 'react'
+import React, {useState } from 'react'
 import { FaRegUser} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import useUserStore from '../store'
 import APIClient from '../services/api-client'
 
 const Nav = () => {
-  // const apiClient=new APIClient<string>('/logout');
   const userStore=useUserStore();
   const [showPopUp,setShowPopUp]=useState('0');
 
+
+    if(userStore.token==undefined){
+      const email =localStorage.getItem("userEmail");
+      if(email!=null){
+        userStore.setEmail(email);
+      }
+      
+      const jwt=localStorage.getItem("token");
+      if(jwt!=null){
+        userStore.setToken(jwt);
+      }
+    }
+
   const handleLogout=()=>{
-    // apiClinet.logout();
+    localStorage.removeItem("token");
+    localStorage.removeItem("userEmail");
     setShowPopUp('0');
     userStore.reset();
   }
@@ -25,7 +38,7 @@ const Nav = () => {
       <FaRegUser size={40} color="black" />
     </div>
     
-    <h2>{userStore.username}</h2>
+    <h2>{userStore.email}</h2>
    
     </div>
  

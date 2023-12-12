@@ -11,11 +11,11 @@ interface SignUpData {
 
 const RegisterForm = () => {
 
-    const apiClient=new APIClient<string>('/register');
+    const apiClient=new APIClient();
 
     const {register,handleSubmit, formState:{errors}}=useForm<SignUpData>();
     const onSubmit=(data: FieldValues)=>{
-      apiClient.get(1);//tu ma byc na endpoint login do backenfu request
+      apiClient.register(data.login,data.password);
       console.log(data)
     };
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { FieldValues, useForm } from 'react-hook-form';
 import APIClient from '../services/api-client';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link,  useNavigate } from 'react-router-dom';
 import useUserStore from '../store';
 
 interface SignInData {
@@ -12,17 +12,27 @@ interface SignInData {
 const LoginForm = () => {
   const navigate=useNavigate();
   const userStore=useUserStore();
-  // const apiClient=new APIClient<string>('/login');
+  const apiClient=new APIClient();
 
     const {register,handleSubmit, formState:{errors}}=useForm<SignInData>();
     const onSubmit=(data: FieldValues)=>{
+      apiClient.login(data.login,data.password)
+      .then(resData=>{
+        console.log(resData.accessToken);
+        localStorage.setItem("token",resData.accessToken);
+        userStore.setToken(resData.accessToken);
+        localStorage.setItem("userEmail",data.login);
+        userStore.setEmail(data.login)
+      })
+      .catch(err=>{
+        console.log("error"+err);
+      })
       
-      // apiClient.get(1);//tu ma byc na endpoint login do backenfu request
-      console.log(data)
-      userStore.setUsername(data.login)
       navigate("/")
     };
 
+    
+   
   return (
   <>
     <div className = "form">

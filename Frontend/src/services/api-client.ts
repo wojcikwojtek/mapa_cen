@@ -1,30 +1,32 @@
 import axios from "axios";
 
-export interface FetchResponse<T> {
-  count: number;
-  next:string|null;
-  results: T[];
+export interface AuthResponse{
+  accessToken:string;
 }
 
 export const axiosInstance= axios.create({
-  baseURL: "https://api.rawg.io/api",
+  baseURL: "https://localhost:7106",
 });
 
-class APIClient<T>{
-  endpoint:string;
+class APIClient{
+  //endpoint:string;
 
-  constructor(endpoint:string){
-    this.endpoint=endpoint;
+  constructor(){
+  
   }
 
-  // login=(login:string,password:string)=>{
-  //     return axiosInstance.
-  // }
+  register=(login:string,password:string)=>{
+      return axiosInstance.post("/register",{email:login,password:password}).then(res=>res.data);
+  }
+
+  login=(login:string,password:string)=>{
+    return axiosInstance.post("/login",{email:login,password:password}).then(res=>res.data);
+}
 
   
-  get=(id: number | string)=>{
-    return axiosInstance.get<T>(this.endpoint+'/'+id).then(res=>res.data);
-  }
+  // get=(id: number | string)=>{
+  //   return axiosInstance.get<T>(this.endpoint+'/'+id).then(res=>res.data);
+  // }
 
   
   
