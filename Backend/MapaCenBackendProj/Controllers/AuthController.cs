@@ -25,7 +25,7 @@ namespace MapaCenBackend.Controllers
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         reader.Read();
-                        string usrnm = reader.GetString("password");
+                        string usrnm = reader.GetString("username");
                         string paswd = reader.GetString("password");
                         if (usrnm != null && usrnm != "")
                         {
