@@ -34,11 +34,11 @@ class APIClient{
 }
 
     getProducts=(productName:string)=>{
-      return axiosInstance.get<ProductsResponse>("/products/search"+productName).then(res=>res.data);
+      return axiosInstance.get<ProductsResponse>("/Product/search/"+productName).then(res=>res.data);
     }
     
     getProductDetail=(productId:number)=>{
-      return axiosInstance.get<AuthResponse>("/productDetail/products/"+productId).then(res=>res.data);
+      return axiosInstance.get<AuthResponse>("/ProductDetail/products/"+productId).then(res=>res.data);
     }
 
   // get=(id: number | string)=>{

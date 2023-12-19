@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Ocsp;
 using System.Numerics;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -15,34 +16,37 @@ namespace MapaCenBackend.Controllers
         {
             try
             {
-                string connstring = "server=localhost;uid=root;pwd=Mapacen;database=mapa_cen.products";
+                string connstring = "server=localhost;uid=root;pwd=Mapacen;database=mapa_cen";
                 MySqlConnection conn = new MySqlConnection();
                 conn.ConnectionString = connstring;
                 conn.Open();
 
-
-                string reg = "[A-Za-z]";
+                /*
+                string reg = "[A-Za-z]*";
                 foreach(char c in product)
                 {
-                    reg += c + "[A-Za-z]";
+                    reg += c + "[A-Za-z]*";
                 }
-                string sql = "select product_id from mapa_cen.products where regexx_like(@productnamearg,"+ reg +")";
+                */
+                //string sql = "select product_id from mapa_cen.products where regexp_like(@productnamearg,"+ reg +")";
+                string sql = "select product_id, product_name from products where product_name like @productnamearg";
                 List<ProductSearch> products = new List<ProductSearch>();
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@productnamearg", product);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        reader.Read();
-                        string prodName = reader.GetString("product_name");
-                        int prodId = reader.GetInt32("product_id");
-                        if (prodName != null && prodName != "")
+                        while (reader.Read())
                         {
-                            
-                            products.Add(new ProductSearch(prodName, prodId));
-                            
+                            string prodName = reader.GetString("product_name");
+                            int prodId = int.Parse(reader.GetString("product_id"));
+                            if (prodName != null && prodName != "")
+                            {
+
+                                products.Add(new ProductSearch(prodName, prodId));
+
+                            }
                         }
-                        
                     }
                     
                 }
