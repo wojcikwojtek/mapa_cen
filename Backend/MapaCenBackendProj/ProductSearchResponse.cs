@@ -17,7 +17,7 @@ namespace MapaCenBackend
 
     public class ProductSearchResponse
     {
-        public List<ProductSearch> products;
+        public List<ProductSearch> products { get; set; }
 
         public ProductSearchResponse(List<ProductSearch> products)
         {

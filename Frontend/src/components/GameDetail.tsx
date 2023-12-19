@@ -5,7 +5,7 @@ import APIClient, { AuthResponse } from '../services/api-client';
 const apiClient=new APIClient();
 const GameDetail = () => {
     const {productId}=useParams();
-    let product:AuthResponse={username:'',authorized:false};
+    let product:AuthResponse={username:'',authorized:true};
    apiClient.getProductDetail(parseInt(productId!))
     .then(data=>product=data)
     .then(err=>console.log(err));

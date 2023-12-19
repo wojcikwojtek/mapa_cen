@@ -28,6 +28,7 @@ const Nav = () => {
     if (event.key === 'Enter') {
       const searchProduct = searchInputRef.current;
       if (searchProduct) {
+        console.log(searchProduct.value);
         userStore.setSearchProduct(searchProduct.value);
       }
     }
