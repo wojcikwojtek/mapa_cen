@@ -1,11 +1,11 @@
-import React, {useState } from 'react'
+import {useRef, useState } from 'react'
 import { FaRegUser} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import useUserStore from '../store'
-import APIClient from '../services/api-client'
 
 const Nav = () => {
   const userStore=useUserStore();
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const [showPopUp,setShowPopUp]=useState('0');
 
   console.log(userStore.username);
@@ -23,13 +23,26 @@ const Nav = () => {
     setShowPopUp('0');
     userStore.reset();
   }
+
+  const handleSearch=(event: { key: string })=>{
+    if (event.key === 'Enter') {
+      const searchProduct = searchInputRef.current;
+      if (searchProduct) {
+        userStore.setSearchProduct(searchProduct.value);
+      }
+    }
+  }
  
 
 
   return (
-<nav>
+<nav><>
+  <Link to={'/'} style={{textDecoration:'none',color:'black'}}>
     <h1>Mapa Cen</h1>
-      <div className='userPanel' onClick={()=>setShowPopUp(showPopUp==='1'?'0':'1')}>
+  </Link>
+    <input type="text" className="searchField" placeholder="Enter your search term" ref={searchInputRef}
+     onKeyDown={handleSearch}/>
+      <div className='userPanel' onKeyDown={()=>setShowPopUp(showPopUp==='1'?'0':'1')}>
     <div className='userIcon'onClick={()=>setShowPopUp(showPopUp==='1'?'0':'1')}>
       <FaRegUser size={40} color="black" />
     </div>
@@ -40,7 +53,7 @@ const Nav = () => {
  
     <div className='userPopUp' style={{opacity:showPopUp}}>
   <Link to={'/auth/login'} style={{textDecoration: 'none'}}>
-    <div onClick={()=>setShowPopUp('0')}>
+    <div onClick={()=>{userStore.username=="gość" && setShowPopUp('0')}}>
       Login
       </div>
       </Link>
@@ -48,6 +61,7 @@ const Nav = () => {
       Logout
       </div> 
     </div>
+    </>
 </nav>
   )
 }
