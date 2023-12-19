@@ -7,12 +7,11 @@ import { useState } from 'react'
 
 
 const Layout = () => {
-  const [username,setUsername]=useState()
 
 
   return (
     <>
-    <Nav username={username}/>
+    <Nav/>
     <Outlet />
     </>
   )

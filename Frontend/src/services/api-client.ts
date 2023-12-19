@@ -5,6 +5,15 @@ export interface AuthResponse{
   authorized:boolean;
 }
 
+export interface ProductsResponse{
+  products:Product[];
+}
+
+export interface Product{
+  productId:number;
+  productName:string;
+}
+
 export const axiosInstance= axios.create({
   baseURL: "https://localhost:7106",
 });
@@ -24,7 +33,9 @@ class APIClient{
     return axiosInstance.post("/Auth/login",{username:login,password:password}).then(res=>res.data);
 }
 
-  
+    getProducts=(productName:string)=>{
+      return axiosInstance.get<ProductsResponse>("/products/"+productName).then(res=>res.data);
+    }  
   // get=(id: number | string)=>{
   //   return axiosInstance.get<T>(this.endpoint+'/'+id).then(res=>res.data);
   // }
