@@ -1,18 +1,14 @@
-import React from 'react'
 import { useParams } from 'react-router-dom';
-import APIClient, { AuthResponse } from '../services/api-client';
+import useProductDetails from '../hooks/useProductDetails';
 
-const apiClient=new APIClient();
+
 const GameDetail = () => {
     const {productId}=useParams();
-    let product:AuthResponse={username:'',authorized:false};
-   apiClient.getProductDetail(parseInt(productId!))
-    .then(data=>product=data)
-    .then(err=>console.log(err));
+    const {data}=useProductDetails(parseInt(productId!));
   return (
     <main>
     <div className='productDetailWrapper'>
-    <div>{product.authorized &&product.username}</div>
+    <div>{data?.username &&data.username}</div>
     </div>
     </main>
   )
