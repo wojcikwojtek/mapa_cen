@@ -9,7 +9,7 @@ namespace MapaCenBackend.Services
         public List<Comment> selectComments(int priceId)
         {
             var comments = new List<Comment>();
-            string connstring = "server=localhost;uid=root;pwd=Mapacen;database=mapa_cen";
+            string connstring = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
             MySqlConnection conn = new MySqlConnection();
             conn.ConnectionString = connstring;
             conn.Open();
