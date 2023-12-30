@@ -12,7 +12,7 @@ namespace MapaCenBackend.Services
         }
         public Product selectProduct(int productId)
         {
-            string connstring = "server=localhost;uid=root;pwd=Mapacen;database=mapa_cen";
+            string connstring = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
             MySqlConnection conn = new MySqlConnection();
             conn.ConnectionString = connstring;
             conn.Open();

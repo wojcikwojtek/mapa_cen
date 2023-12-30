@@ -17,7 +17,7 @@ namespace MapaCenBackend.Controllers
         {
             try
             {
-                string connstring = "server=localhost;uid=root;pwd=Mapacen;database=mapa_cen";
+                string connstring = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
                 MySqlConnection conn = new MySqlConnection();
                 conn.ConnectionString = connstring;
                 conn.Open();
