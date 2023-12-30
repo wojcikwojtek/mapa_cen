@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Ocsp;
 using System.Numerics;
+using System.Text.RegularExpressions;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
@@ -17,6 +18,12 @@ namespace MapaCenBackend.Controllers
         {
             try
             {
+                string forReg = "[A-Za-z]*";
+                foreach(char c in product)
+                {
+                    forReg += c + "[A-Za-z]*";
+                }
+                Regex reg = new Regex(forReg, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
                 string connstring = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
                 MySqlConnection conn = new MySqlConnection();
                 conn.ConnectionString = connstring;
@@ -30,7 +37,7 @@ namespace MapaCenBackend.Controllers
                 }
                 */
                 //string sql = "select product_id from mapa_cen.products where regexp_like(@productnamearg,"+ reg +")";
-                string sql = "select product_id, product_name from products where product_name like @productnamearg";
+                string sql = "select product_id, product_name from products";
                 List<ProductSearch> products = new List<ProductSearch>();
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                 {
@@ -43,8 +50,11 @@ namespace MapaCenBackend.Controllers
                             int prodId = int.Parse(reader.GetString("product_id"));
                             if (prodName != null && prodName != "")
                             {
-
-                                products.Add(new ProductSearch(prodName, prodId));
+                                if( reg.IsMatch(prodName) )
+                                {
+                                    products.Add(new ProductSearch(prodName, prodId));
+                                }
+                                
 
                             }
                         }
