@@ -32,7 +32,8 @@ namespace MapaCenBackend.Controllers
                 Product product = productService.selectProduct(productId);
                 List<PriceDTO> pricesDTOs = product.getPrices()
                     .Select(source => new PriceDTO(source.getShopAddress(), 
-                    source.getDate(), 
+                    source.getDate(),
+                    source.getPriceValue(),
                     getRatingsDTO(source.getRatings()), 
                     getCommentsDTO(source.getComments())
                     )).ToList();

@@ -32,9 +32,10 @@ namespace MapaCenBackend.Services
                         int product_id = int.Parse(reader.GetString("product_id"));
                         string shop_address = reader.GetString("shop_address");
                         string price_date = reader.GetString("date");
+                        double price_value = double.Parse(reader.GetString("price_value"));
                         List<Comment> comments = commentService.selectComments(price_id);
                         List<Rating> ratings = ratingService.selectRatings(price_id);
-                        Price price = new Price(price_id, product_id, shop_address, price_date, ratings, comments);
+                        Price price = new Price(price_id, product_id, shop_address, price_date, price_value, ratings, comments);
                         prices.Add(price);
                     }
                 }
