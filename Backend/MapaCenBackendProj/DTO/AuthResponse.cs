@@ -1,8 +1,8 @@
-﻿namespace MapaCenBackend
+﻿namespace MapaCenBackend.DTO
 {
     public class AuthResponse
     {
-        public string username {  get; set; }
+        public string username { get; set; }
         public bool authorized { get; set; }
 
         public AuthResponse(string username, bool authorized)

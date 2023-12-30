@@ -1,4 +1,4 @@
-﻿namespace MapaCenBackend
+﻿namespace MapaCenBackend.DTO
 {
     public class RegisterDto
     {

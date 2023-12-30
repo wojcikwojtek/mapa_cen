@@ -1,12 +1,12 @@
 ﻿using System.Numerics;
 
-namespace MapaCenBackend
+namespace MapaCenBackend.DTO
 {
     public class ProductSearch
     {
         public string productName { get; set; }
         public int productId { get; set; }
-        
+
 
         public ProductSearch(string productName, int productId)
         {
@@ -23,6 +23,6 @@ namespace MapaCenBackend
         {
             this.products = products;
         }
-        
+
     }
 }

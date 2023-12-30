@@ -1,4 +1,4 @@
-﻿namespace MapaCenBackend
+﻿namespace MapaCenBackend.Entities
 {
     public class Price
     {
@@ -23,5 +23,10 @@
             this.ratings = ratings;
             this.comments = comments;
         }
+
+        public string getShopAddress() { return shop_address; }
+        public string getDate() { return date; }
+        public List<Rating> getRatings() {  return ratings; }
+        public List<Comment> getComments() {  return comments; }
     }
 }

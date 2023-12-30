@@ -1,4 +1,4 @@
-﻿namespace MapaCenBackend
+﻿namespace MapaCenBackend.Entities
 {
     public class Comment
     {
@@ -23,5 +23,9 @@
             this.content = content;
             this.picture = picture;
         }
+        public int getUserId() { return user_id; }
+        public string getDate() { return date; }
+        public string getContent() { return content; }
+        public string getPicture() { return picture; }
     }
 }

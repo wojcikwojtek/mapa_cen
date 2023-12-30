@@ -1,4 +1,4 @@
-﻿namespace MapaCenBackend
+﻿namespace MapaCenBackend.Entities
 {
     public class Rating
     {
@@ -17,5 +17,8 @@
             this.user_id = user_id;
             this.is_positive = is_positive;
         }
+
+        public int getUserId() { return user_id; }
+        public bool getIsPositive() { return is_positive; }
     }
 }
