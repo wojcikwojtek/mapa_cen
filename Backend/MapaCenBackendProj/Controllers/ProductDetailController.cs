@@ -15,12 +15,14 @@ namespace MapaCenBackend.Controllers
     public class ProductDetailController
     {
         private ProductService productService;
+        private UserService userService;
         public ProductDetailController()
         {
             RatingService ratingService = new RatingService();
             CommentService commentService = new CommentService();
             PriceService priceService = new PriceService(commentService, ratingService);
             this.productService = new ProductService(priceService);
+            this.userService = new UserService();
         }
         [HttpGet("products/{productId}")]
         public ProductDetailResponse productDetails([FromRoute] int productId)
@@ -46,7 +48,8 @@ namespace MapaCenBackend.Controllers
             var ratingsDTO = new List<RatingDTO>();
             foreach(Rating rating in ratings)
             {
-                RatingDTO ratingDTO = new RatingDTO(rating.getUserId(), rating.getIsPositive());
+                string username = userService.selectUsername(rating.getUserId());
+                RatingDTO ratingDTO = new RatingDTO(username, rating.getIsPositive());
                 ratingsDTO.Add(ratingDTO);
             }
             return ratingsDTO;
@@ -56,7 +59,7 @@ namespace MapaCenBackend.Controllers
             var commentsDTO = new List<CommentDTO>();
             foreach (Comment comment in comments)
             {
-                CommentDTO commentDTO = new CommentDTO(comment.getUserId(), comment.getDate(), comment.getContent(), comment.getPicture());
+                CommentDTO commentDTO = new CommentDTO(userService.selectUsername(comment.getUserId()), comment.getDate(), comment.getContent(), comment.getPicture());
                 commentsDTO.Add(commentDTO);
             }
             return commentsDTO;
