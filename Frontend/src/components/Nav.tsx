@@ -10,9 +10,7 @@ const Nav = () => {
 
   console.log(userStore.username);
     if(userStore.username=="gość"){
-      console.log("weszlo");
       const username =localStorage.getItem("username");
-      console.log(username);
       if(username!=null){
         userStore.setUsername(username);
       }
@@ -52,7 +50,18 @@ const Nav = () => {
    
     </div>
  
-    <div className='userPopUp' style={{opacity:showPopUp}}>
+    <div className='userPopUp'  style={{opacity:showPopUp,zIndex:'2'}}>
+  {userStore.username!='gość' ?
+  <>
+  <div style={{backgroundColor:'rgb(180,180,180)'}}>
+  Login
+  </div> 
+  <div onClick={()=>handleLogout()}>
+  Logout
+  </div> 
+  </>
+  :
+  <>
   <Link to={'/auth/login'} style={{textDecoration: 'none'}}>
     <div onClick={()=>{userStore.username=="gość" && setShowPopUp('0')}}>
       Login
@@ -61,6 +70,8 @@ const Nav = () => {
     <div onClick={()=>handleLogout()}>
       Logout
       </div> 
+   </>
+    }
     </div>
     </>
 </nav>

@@ -10,14 +10,14 @@ const Main =  () => {
   return (
     <>
     <main>
-      {data?.products  &&<h1>Find Products:</h1>}
+      {(data?.products.length||0) > 0  &&
+      <h1>Find Products:</h1>}
       {data?.products &&
       data.products.map((product) => (
         <Link to={"/productDetail/"+product.productId}>
           <p style={{marginTop:'10px',cursor:'pointer'}} key={product.productId}>{product.productName}</p>
           </Link>
       ))}
-      <Link to={"/productDetail/"+1}><p>some Products</p></Link>
     </main>
     </>
   )
