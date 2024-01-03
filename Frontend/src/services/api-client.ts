@@ -1,4 +1,6 @@
 import axios from "axios";
+import { Product } from "../entities/product";
+import { ProductDetails } from "../entities/productDetails";
 
 export interface AuthResponse{
   username:string;
@@ -9,10 +11,7 @@ export interface ProductsResponse{
   products:Product[];
 }
 
-export interface Product{
-  productId:number;
-  productName:string;
-}
+
 
 export const axiosInstance= axios.create({
   baseURL: "https://localhost:7106",
@@ -20,9 +19,7 @@ export const axiosInstance= axios.create({
 
 class APIClient{
   //endpoint:string;
-
   constructor(){
-  
   }
 
   register=(login:string,email:string,password:string)=>{
@@ -38,7 +35,7 @@ class APIClient{
     }
     
     getProductDetail=(productId:number)=>{
-      return axiosInstance.get<AuthResponse>("/ProductDetail/products/"+productId).then(res=>res.data);
+      return axiosInstance.get<ProductDetails>("/ProductDetail/products/"+productId).then(res=>res.data);
     }
 
   // get=(id: number | string)=>{

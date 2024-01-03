@@ -4,7 +4,7 @@ import Main from "./components/Main";
 import AuthPage from "./pages/AuthPage";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
-import GameDetail from "./components/GameDetail";
+import ProductDetails from "./components/ProductDetails";
 
 
 const router =createBrowserRouter([
@@ -14,7 +14,7 @@ const router =createBrowserRouter([
     // errorElement:<ErrorPage/>,
     children:[
      {path:'',element:<Main/>},
-     {path:'/productDetail/:productId',element:<GameDetail/>},
+     {path:'/productDetail/:productId',element:<ProductDetails/>},
         {path:'auth',
         element:<AuthPage/>,
         children:[
