@@ -1,7 +1,10 @@
 ﻿using MapaCenBackend.DTO;
+using MapaCenBackend.Entities;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Ocsp;
+using System;
+using System.Data;
 using System.Numerics;
 using System.Text.RegularExpressions;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
@@ -29,14 +32,6 @@ namespace MapaCenBackend.Controllers
                 conn.ConnectionString = connstring;
                 conn.Open();
 
-                /*
-                string reg = "[A-Za-z]*";
-                foreach(char c in product)
-                {
-                    reg += c + "[A-Za-z]*";
-                }
-                */
-                //string sql = "select product_id from mapa_cen.products where regexp_like(@productnamearg,"+ reg +")";
                 string sql = "select product_id, product_name from products";
                 List<ProductSearch> products = new List<ProductSearch>();
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
@@ -69,5 +64,99 @@ namespace MapaCenBackend.Controllers
             }
         }
 
+        [HttpPost("addPrice")]
+        public void addPrice([FromBody] AddPriceRequest addPriceRequest)
+        {
+            try
+            {
+                DateTime currentDT = DateTime.Now;
+                string curretnDateTime = currentDT.ToString("yyyy-MM-dd HH:mm:ss");
+                string connstring = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
+                MySqlConnection conn = new MySqlConnection();
+                conn.ConnectionString = connstring;
+                conn.Open();
+                string sql = "insert into prices(product_id, shop_address, date, price_value) values(@product_id_arg, @address_arg, @datetime_arg, @price_value_arg);";
+                using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@product_id_arg", addPriceRequest.productId );
+                    cmd.Parameters.AddWithValue("@address_arg", addPriceRequest.shopAddress );
+                    cmd.Parameters.AddWithValue("@datetime_arg", curretnDateTime );
+                    cmd.Parameters.AddWithValue("@price_value_arg", addPriceRequest.priceValue );
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to insert to mysql db");
+            }
+            
+        }
+
+        [HttpPost("addComment")]
+        public void addComment([FromBody] AddCommentRequest addCommentRequest)
+        {
+            try
+            {
+                DateTime currentDT = DateTime.Now;
+                string curretnDateTime = currentDT.ToString("yyyy-MM-dd HH:mm:ss");
+                string connstring = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
+                MySqlConnection conn = new MySqlConnection();
+                conn.ConnectionString = connstring;
+                conn.Open();
+                string sql = "insert into comments(price_id, date, content) values(@price_id_arg , @datetime_arg, @content_arg);";
+                using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@price_id_arg", addCommentRequest.priceId);
+                    cmd.Parameters.AddWithValue("@datetime_arg", curretnDateTime);
+                    cmd.Parameters.AddWithValue("@content_arg", addCommentRequest.content);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to insert to mysql db");
+            }
+
+        }
+
+        [HttpGet("showMostPopularProducts")]
+        public ProductSearchResponse showMostPopularProducts()
+        {
+            try
+            {
+                
+                string connstring = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
+                MySqlConnection conn = new MySqlConnection();
+                conn.ConnectionString = connstring;
+                conn.Open();
+
+                string sql = "select products.product_id, products.product_name from products join prices on products.product_id = prices.product_id group by products.product_id order by count(prices.price_id) limit 10";
+                List<ProductSearch> products = new List<ProductSearch>();
+                using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string prodName = reader.GetString("product_name");
+                            int prodId = int.Parse(reader.GetString("product_id"));
+                            if (prodName != null && prodName != "")
+                            {
+                                
+                                products.Add(new ProductSearch(prodName, prodId));
+
+                            }
+                        }
+                    }
+
+                }
+                return new ProductSearchResponse(products);
+            }
+            catch (Exception ex)
+            {
+                return new ProductSearchResponse(new List<ProductSearch>());
+            }
+
+        }
     }
 }
