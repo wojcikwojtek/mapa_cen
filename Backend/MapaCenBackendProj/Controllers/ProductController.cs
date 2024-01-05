@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Ocsp;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Numerics;
 using System.Text.RegularExpressions;
@@ -103,13 +104,79 @@ namespace MapaCenBackend.Controllers
                 MySqlConnection conn = new MySqlConnection();
                 conn.ConnectionString = connstring;
                 conn.Open();
-                string sql = "insert into comments(price_id, date, content) values(@price_id_arg , @datetime_arg, @content_arg);";
+                string sql = "insert into comments(price_id, user_id, date, content) values(@price_id_arg , @user_id_arg , @datetime_arg, @content_arg);";
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@price_id_arg", addCommentRequest.priceId);
+                    cmd.Parameters.AddWithValue("@user_id_arg", addCommentRequest.userId);
                     cmd.Parameters.AddWithValue("@datetime_arg", curretnDateTime);
                     cmd.Parameters.AddWithValue("@content_arg", addCommentRequest.content);
                     cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to insert to mysql db");
+            }
+
+        }
+
+        [HttpPost("actualizeRating")]
+        public void actualizeRating([FromBody] ActualizeRatingRequest actualizeRatingRequest)
+        {
+            try
+            {
+                string connstring = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
+                MySqlConnection conn = new MySqlConnection();
+                conn.ConnectionString = connstring;
+                conn.Open();
+                bool found = false;
+                string sql = "select * from ratings where user_id = @user_id_arg and price_id = @price_id_arg";
+                
+                using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@user_id_arg", actualizeRatingRequest.userId);
+                    cmd.Parameters.AddWithValue("@price_id_arg", actualizeRatingRequest.priceId);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            bool isPositiveDB = reader.GetString("is_positive") == "1";
+                            if ( isPositiveDB != actualizeRatingRequest.positive )
+                            {
+                                string connstring2 = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
+                                MySqlConnection conn2 = new MySqlConnection();
+                                conn2.ConnectionString = connstring2;
+                                conn2.Open();
+                                string sql2 = "update ratings set is_positive = @is_positive_arg where ratings.price_id = @price_id_arg and ratings.user_id=@user_id_arg ;";
+                                using (MySqlCommand cmd2 = new MySqlCommand(sql2, conn2))
+                                {
+                                    cmd2.Parameters.AddWithValue("@price_id_arg", actualizeRatingRequest.priceId);
+                                    cmd2.Parameters.AddWithValue("@user_id_arg", actualizeRatingRequest.userId);
+                                    cmd2.Parameters.AddWithValue("@is_positive_arg", actualizeRatingRequest.positive);
+                                    cmd2.ExecuteNonQuery();
+                                }
+                            }
+                            
+                        }
+                        else
+                        {
+                            string connstring2 = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
+                            MySqlConnection conn2 = new MySqlConnection();
+                            conn2.ConnectionString = connstring2;
+                            conn2.Open();
+                            string sql2 = "insert into ratings(price_id, user_id, is_positive) values(@price_id_arg, @user_id_arg, @is_positive_arg);";
+                            using (MySqlCommand cmd2 = new MySqlCommand(sql2, conn2))
+                            {
+                                cmd2.Parameters.AddWithValue("@price_id_arg", actualizeRatingRequest.priceId);
+                                cmd2.Parameters.AddWithValue("@user_id_arg", actualizeRatingRequest.userId);
+                                cmd2.Parameters.AddWithValue("@is_positive_arg", actualizeRatingRequest.positive);
+                                cmd2.ExecuteNonQuery();
+                            }
+                            
+                        }
+                    }
+
                 }
             }
             catch (Exception ex)
