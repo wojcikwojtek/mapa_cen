@@ -2,12 +2,17 @@ import React, { useRef, useState } from 'react'
 import { Price } from '../../entities/price'
 import { BiLike } from "react-icons/bi";
 import { BiDislike } from "react-icons/bi";
+import APIClient from '../../services/api-client';
+import useUserStore from '../../store';
 
 interface Props{
     priceInfo:Price;
 }
 
+const apiClient=new APIClient();
+
 const ProductItem = ({priceInfo}:Props) => {
+    const userStore=useUserStore();
     const [showAddComment,setShowAddComment]=useState(false);
     const [showComments,setShowComments]=useState(false);
     // const [guestComment, setGuestComment] = useState('');
@@ -26,10 +31,15 @@ const ProductItem = ({priceInfo}:Props) => {
     const handleLikeOpinionClick=()=>{
         setPositiveOpinionIsGiven(!positiveOpinionIsGiven);
         setNegativeOpinionIsGiven(false);
+        console.log("halo");
+        console.log(userStore.userId);
+        console.log(priceInfo.priceId);
+        apiClient.updateOpinionForPrice(userStore.userId,priceInfo.priceId,true);
     }
     const handleDislikeOpinionClick=()=>{
         setNegativeOpinionIsGiven(!negativeOpinionIsGiven);
         setPositiveOpinionIsGiven(false);
+        apiClient.updateOpinionForPrice(userStore.userId,priceInfo.priceId,false);
     }
   
   return (
@@ -39,11 +49,11 @@ const ProductItem = ({priceInfo}:Props) => {
        <span style={{marginRight:'10px'}}>cena {priceInfo.priceValue}zł</span>
        <div className='flexCenter' style={{marginRight:'10px'}}>
         <div style={{cursor:'pointer'}} onClick={handleLikeOpinionClick}><BiLike size={20}  color="green"/></div>
-        {positiveOpinionIsGiven ? (86+1) :86}
+        {positiveOpinionIsGiven ? (priceInfo.upvotes+1) :priceInfo.upvotes}
         </div>
         <div className='flexCenter' style={{marginRight:'10px'}}>
         <div style={{cursor:'pointer'}} onClick={handleDislikeOpinionClick}><BiDislike size={20}  color="red"/></div>
-        {negativeOpinionIsGiven ? (35+1) :35}
+        {negativeOpinionIsGiven ? (priceInfo.downvotes+1) :priceInfo.downvotes}
         </div>
       </p>
       <p>

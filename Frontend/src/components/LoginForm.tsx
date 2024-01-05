@@ -21,7 +21,9 @@ const LoginForm = () => {
       .then(res=>{
         if(res.authorized == true){
           userStore.setUsername(data.login);
+          userStore.setUserId(res.userId);
           localStorage.setItem("username",data.login);
+          localStorage.setItem("userId",res.userId);
           console.log("jest git");
           navigate("/");
         }else{
