@@ -31,7 +31,9 @@ namespace MapaCenBackend.Controllers
             {
                 Product product = productService.selectProduct(productId);
                 List<PriceDTO> pricesDTOs = product.getPrices()
-                    .Select(source => new PriceDTO(source.getShopAddress(), 
+                    .Select(source => new PriceDTO(
+                    source.getPriceId(),
+                    source.getShopAddress(), 
                     source.getDate(),
                     source.getPriceValue(),
                     getRatingsDTO(source.getRatings()), 
@@ -88,7 +90,7 @@ namespace MapaCenBackend.Controllers
             var commentsDTO = new List<CommentDTO>();
             foreach (Comment comment in comments)
             {
-                CommentDTO commentDTO = new CommentDTO(userService.selectUsername(comment.getUserId()), comment.getDate(), comment.getContent(), comment.getPicture());
+                CommentDTO commentDTO = new CommentDTO(userService.selectUsername(comment.getUserId()), comment.getDate(), comment.getContent(),comment.getPicture());
                 commentsDTO.Add(commentDTO);
             }
             return commentsDTO;

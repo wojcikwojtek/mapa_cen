@@ -26,7 +26,9 @@ namespace MapaCenBackend.Services
                         int user_id = int.Parse(commentReader.GetString("user_id"));
                         string date = commentReader.GetString("date");
                         string content = commentReader.GetString("content");
-                        string picture = commentReader.GetString("picture");
+                        string picture = commentReader.IsDBNull(commentReader.GetOrdinal("picture"))
+                        ? null
+                        : commentReader.GetString("picture");
                         Comment comment = new Comment(comment_id, price_id, user_id, date, content, picture);
                         comments.Add(comment);
                     }
