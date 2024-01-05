@@ -37,7 +37,35 @@ namespace MapaCenBackend.Controllers
                     getRatingsDTO(source.getRatings()), 
                     getCommentsDTO(source.getComments())
                     )).ToList();
-                return new ProductDetailResponse(product.getProductName(), product.getPicture(), pricesDTOs);
+                double sumPrice = 0;
+                int i = 0;
+                DateTime currentDate = DateTime.Now;
+                int lastMonth = currentDate.Month - 1;
+                int lastYear = currentDate.Year;
+                if(lastMonth < 1)
+                {
+                    lastMonth = 12;
+                    lastYear--;
+                }
+                foreach(PriceDTO pr in pricesDTOs)
+                {
+                    int month = int.Parse(pr.date.Substring(3, 2));
+                    int year = int.Parse(pr.date.Substring(6, 4));
+                    if(month == lastMonth && year == lastYear)
+                    {
+                        sumPrice += pr.priceValue;
+                        i++;
+                    }
+                }
+                double average;
+                if(i > 0)
+                {
+                    average = sumPrice / i;
+                } else
+                {
+                    average = 0;
+                }
+                return new ProductDetailResponse(product.getProductName(), product.getPicture(), average, pricesDTOs);
             }
             catch (Exception ex)
             {
