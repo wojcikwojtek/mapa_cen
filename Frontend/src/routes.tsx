@@ -4,7 +4,7 @@ import Main from "./components/Main";
 import AuthPage from "./pages/AuthPage";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
-import ProductDetails from "./components/ProductDetails";
+import ProductDetails from "./components/productDetails/ProductDetails";
 
 
 const router =createBrowserRouter([

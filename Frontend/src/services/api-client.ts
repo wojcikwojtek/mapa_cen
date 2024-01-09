@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Product } from "../entities/product";
 import { ProductDetails } from "../entities/productDetails";
+import { Price } from "../entities/price";
 
 export interface AuthResponse{
   username:string;
@@ -11,6 +12,10 @@ export interface ProductsResponse{
   products:Product[];
 }
 
+export interface RegionResponse{
+  id:number;
+  name:string;
+}
 
 
 export const axiosInstance= axios.create({
@@ -41,6 +46,26 @@ class APIClient{
     updateOpinionForPrice=(userId: number,priceId:number,isPositive:boolean)=>{
       return axiosInstance.post("/Product/updateRating",{userId:userId,priceId:priceId,positive:isPositive}).then(res=>res.data);
   }
+
+    getProvinces=()=>{
+      return axiosInstance.get<RegionResponse[]>("/Region/region").then(res=>res.data);
+    }
+
+    getPowiat=(provinceId:number)=>{
+      return axiosInstance.get<RegionResponse[]>("/Region/region/"+provinceId).then(res=>res.data);
+    }
+
+    getPricesForRegion(productId:number,regionId:number){
+      const params={
+        productId:productId,
+        regionId:regionId,
+      }
+      return axiosInstance.get<Price[]>("/ProductDetail/prices/",{params}).then(res=>res.data);
+    }
+
+    updateDefaultProvince=(provinceId:number,userId:number)=>{
+      return axiosInstance.put("/Region/region/"+provinceId+"/user/"+userId).then(res=>res.data);
+    }
 
   
   
