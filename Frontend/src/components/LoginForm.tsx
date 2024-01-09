@@ -22,9 +22,10 @@ const LoginForm = () => {
         if(res.authorized == true){
           userStore.setUsername(data.login);
           userStore.setUserId(res.userId);
+          userStore.setUserRegion(res.id_regionu);
           localStorage.setItem("username",data.login);
           localStorage.setItem("userId",res.userId);
-          console.log("jest git");
+          localStorage.setItem("province",res.id_regionu);
           navigate("/");
         }else{
           setLoginError(true);

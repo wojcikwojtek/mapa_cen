@@ -43,7 +43,7 @@ const ProductItem = ({priceInfo}:Props) => {
     }
   
   return (
-    <div className='priceItem' >
+    <div className='listItem' >
       <p style={{display:'flex',justifyContent:'',width:'100%',marginBottom:'5px'}}>
        <span style={{marginRight:'10px'}}>2022-05-10 </span>
        <span style={{marginRight:'10px'}}>cena {priceInfo.priceValue}zł</span>
