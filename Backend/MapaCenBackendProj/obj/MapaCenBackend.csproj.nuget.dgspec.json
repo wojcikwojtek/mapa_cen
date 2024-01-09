@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\Michał\\OneDrive\\Pulpit\\mapa_cen\\Backend\\MapaCenBackendProj\\MapaCenBackend.csproj": {}
   },
   "projects": {
@@ -12,12 +13,29 @@
         "projectPath": "C:\\Users\\Michał\\OneDrive\\Pulpit\\mapa_cen\\Backend\\MapaCenBackendProj\\MapaCenBackend.csproj",
         "packagesPath": "C:\\Users\\Michał\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Michał\\OneDrive\\Pulpit\\mapa_cen\\Backend\\MapaCenBackendProj\\obj\\",
+=======
+    "C:\\Users\\wojte\\Desktop\\Wojtek\\studia\\IO\\MapaCen\\mapa_cen\\Backend\\MapaCenBackendProj\\MapaCenBackend.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\wojte\\Desktop\\Wojtek\\studia\\IO\\MapaCen\\mapa_cen\\Backend\\MapaCenBackendProj\\MapaCenBackend.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\wojte\\Desktop\\Wojtek\\studia\\IO\\MapaCen\\mapa_cen\\Backend\\MapaCenBackendProj\\MapaCenBackend.csproj",
+        "projectName": "MapaCenBackend",
+        "projectPath": "C:\\Users\\wojte\\Desktop\\Wojtek\\studia\\IO\\MapaCen\\mapa_cen\\Backend\\MapaCenBackendProj\\MapaCenBackend.csproj",
+        "packagesPath": "C:\\Users\\wojte\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\wojte\\Desktop\\Wojtek\\studia\\IO\\MapaCen\\mapa_cen\\Backend\\MapaCenBackendProj\\obj\\",
+>>>>>>> 2974b4b8f09240119db2aff491dce14a16d0f58e
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\Michał\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+          "C:\\Users\\wojte\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 2974b4b8f09240119db2aff491dce14a16d0f58e
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

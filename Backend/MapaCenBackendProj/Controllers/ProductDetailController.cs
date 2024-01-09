@@ -16,11 +16,12 @@ namespace MapaCenBackend.Controllers
     {
         private ProductService productService;
         private UserService userService;
+        private PriceService priceService;
         public ProductDetailController()
         {
             RatingService ratingService = new RatingService();
             CommentService commentService = new CommentService();
-            PriceService priceService = new PriceService(commentService, ratingService);
+            this.priceService = new PriceService(commentService, ratingService);
             this.productService = new ProductService(priceService);
             this.userService = new UserService();
         }
@@ -67,12 +68,27 @@ namespace MapaCenBackend.Controllers
                 {
                     average = 0;
                 }
-                return new ProductDetailResponse(product.getProductName(), product.getPicture(), average, pricesDTOs);
+                return new ProductDetailResponse(product.getProductName(), product.getPicture(), average);
             }
             catch (Exception ex)
             {
                 return new ProductDetailResponse();
             }
+        }
+
+        [HttpGet("prices")]
+        public List<PriceDTO> GetPricesFromRegion([FromQuery]int productId, [FromQuery]int regionId)
+        {
+            List<PriceDTO> pricesDTO = priceService.selectPricesFromRegion(productId, regionId)
+                 .Select(source => new PriceDTO(
+                    source.getPriceId(),
+                    source.getShopAddress(),
+                    source.getDate(),
+                    source.getPriceValue(),
+                    getRatingsDTO(source.getRatings()),
+                    getCommentsDTO(source.getComments())
+                    )).ToList();
+            return pricesDTO;
         }
         private List<RatingDTO> getRatingsDTO(List<Rating> ratings)
         {
