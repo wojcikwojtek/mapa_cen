@@ -27,6 +27,7 @@
             this.comments = comments;
         }
 
+        public int getPriceId() { return price_id; }
         public string getShopAddress() { return shop_address; }
         public string getDate() { return date; }
         public double getPriceValue() { return price_value;}

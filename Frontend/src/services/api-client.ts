@@ -38,9 +38,9 @@ class APIClient{
       return axiosInstance.get<ProductDetails>("/ProductDetail/products/"+productId).then(res=>res.data);
     }
 
-  // get=(id: number | string)=>{
-  //   return axiosInstance.get<T>(this.endpoint+'/'+id).then(res=>res.data);
-  // }
+    updateOpinionForPrice=(userId: number,priceId:number,isPositive:boolean)=>{
+      return axiosInstance.post("/Product/updateRating",{userId:userId,priceId:priceId,positive:isPositive}).then(res=>res.data);
+  }
 
   
   

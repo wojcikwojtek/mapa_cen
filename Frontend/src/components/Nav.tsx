@@ -8,16 +8,18 @@ const Nav = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [showPopUp,setShowPopUp]=useState('0');
 
-  console.log(userStore.username);
     if(userStore.username=="gość"){
       const username =localStorage.getItem("username");
-      if(username!=null){
+      const userId =localStorage.getItem("userId")
+      if(username!=null && userId != null){
         userStore.setUsername(username);
+        userStore.setUserId(parseInt(userId));
       }
     }
 
   const handleLogout=()=>{
     localStorage.removeItem("username");
+    localStorage.removeItem("userId");
     setShowPopUp('0');
     userStore.reset();
   }

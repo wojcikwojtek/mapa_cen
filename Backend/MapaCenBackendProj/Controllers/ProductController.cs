@@ -121,8 +121,8 @@ namespace MapaCenBackend.Controllers
 
         }
 
-        [HttpPost("actualizeRating")]
-        public void actualizeRating([FromBody] ActualizeRatingRequest actualizeRatingRequest)
+        [HttpPost("updateRating")]
+        public void updateRating([FromBody] UpdateRatingRequest updateRatingRequest)
         {
             try
             {
@@ -135,14 +135,14 @@ namespace MapaCenBackend.Controllers
                 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                 {
-                    cmd.Parameters.AddWithValue("@user_id_arg", actualizeRatingRequest.userId);
-                    cmd.Parameters.AddWithValue("@price_id_arg", actualizeRatingRequest.priceId);
+                    cmd.Parameters.AddWithValue("@user_id_arg", updateRatingRequest.userId);
+                    cmd.Parameters.AddWithValue("@price_id_arg", updateRatingRequest.priceId);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
                             bool isPositiveDB = reader.GetString("is_positive") == "1";
-                            if ( isPositiveDB != actualizeRatingRequest.positive )
+                            if ( isPositiveDB != updateRatingRequest.positive )
                             {
                                 string connstring2 = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
                                 MySqlConnection conn2 = new MySqlConnection();
@@ -151,9 +151,9 @@ namespace MapaCenBackend.Controllers
                                 string sql2 = "update ratings set is_positive = @is_positive_arg where ratings.price_id = @price_id_arg and ratings.user_id=@user_id_arg ;";
                                 using (MySqlCommand cmd2 = new MySqlCommand(sql2, conn2))
                                 {
-                                    cmd2.Parameters.AddWithValue("@price_id_arg", actualizeRatingRequest.priceId);
-                                    cmd2.Parameters.AddWithValue("@user_id_arg", actualizeRatingRequest.userId);
-                                    cmd2.Parameters.AddWithValue("@is_positive_arg", actualizeRatingRequest.positive);
+                                    cmd2.Parameters.AddWithValue("@price_id_arg", updateRatingRequest.priceId);
+                                    cmd2.Parameters.AddWithValue("@user_id_arg", updateRatingRequest.userId);
+                                    cmd2.Parameters.AddWithValue("@is_positive_arg", updateRatingRequest.positive);
                                     cmd2.ExecuteNonQuery();
                                 }
                             }
@@ -168,9 +168,9 @@ namespace MapaCenBackend.Controllers
                             string sql2 = "insert into ratings(price_id, user_id, is_positive) values(@price_id_arg, @user_id_arg, @is_positive_arg);";
                             using (MySqlCommand cmd2 = new MySqlCommand(sql2, conn2))
                             {
-                                cmd2.Parameters.AddWithValue("@price_id_arg", actualizeRatingRequest.priceId);
-                                cmd2.Parameters.AddWithValue("@user_id_arg", actualizeRatingRequest.userId);
-                                cmd2.Parameters.AddWithValue("@is_positive_arg", actualizeRatingRequest.positive);
+                                cmd2.Parameters.AddWithValue("@price_id_arg", updateRatingRequest.priceId);
+                                cmd2.Parameters.AddWithValue("@user_id_arg", updateRatingRequest.userId);
+                                cmd2.Parameters.AddWithValue("@is_positive_arg", updateRatingRequest.positive);
                                 cmd2.ExecuteNonQuery();
                             }
                             

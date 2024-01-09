@@ -43,7 +43,8 @@ const ProductDetails = () => {
         <FaCrown size={25}  color="gold"/>
         </div>
         </p>
-        <img src={empty} alt="nicc" width='80px' height='80px' />
+        <img style={{marginTop:'20px'}} src={empty} alt="nicc" width='80px' height='80px' />
+        <p style={{marginTop:'20px'}}>średnia cena w ciągu ostatniego miesiąca to {data?.averagePriceFromLastMonth}zł</p>
       </div>
     <div className='mapWrapper'>
       <h2 style={{width:'100%',textAlign:'center'}} >Mapa albo Informacje o konkretnej cenie</h2>
