@@ -19,7 +19,7 @@ namespace MapaCenBackend.Controllers
                 MySqlConnection conn = new MySqlConnection();
                 conn.ConnectionString = connstring;
                 conn.Open();
-                string sql = "select user_id, username, password from users where username = @usernamearg";
+                string sql = "select user_id, username, password, id_regionu from users where username = @usernamearg";
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@usernamearg", loginRequest.username);
@@ -29,20 +29,21 @@ namespace MapaCenBackend.Controllers
                         int userId = int.Parse(reader.GetString("user_id"));
                         string usrnm = reader.GetString("username");
                         string paswd = reader.GetString("password");
+                        int idRegionu = reader.GetString("id_regionu") == null ? 0 : int.Parse(reader.GetString("id_regionu"));
                         if (usrnm != null && usrnm != "")
                         {
                             if (loginRequest.password == paswd)
                             {
-                                return new AuthResponse(userId,loginRequest.username, true);
+                                return new AuthResponse(userId,loginRequest.username, true, idRegionu);
                             }
                         }
-                        return new AuthResponse(userId, loginRequest.username, false);
+                        return new AuthResponse(userId, loginRequest.username, false, idRegionu);
                     }
                 }
             }
             catch (Exception ex)
             {
-                return new AuthResponse(-1,loginRequest.username, false);
+                return new AuthResponse(-1,loginRequest.username, false, 0);
             }
         }
 

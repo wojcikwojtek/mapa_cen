@@ -16,7 +16,9 @@
 
         private List<Comment> comments;
 
-        public Price(int price_id, int product_id, string shop_address, string date, double price_value, List<Rating> ratings, List<Comment> comments)
+        private int region_id;
+
+        public Price(int price_id, int product_id, string shop_address, string date, double price_value, List<Rating> ratings, List<Comment> comments, int region_id)
         {
             this.price_id = price_id;
             this.product_id = product_id;
@@ -25,6 +27,7 @@
             this.price_value = price_value;
             this.ratings = ratings;
             this.comments = comments;
+            this.region_id = region_id;
         }
 
         public int getPriceId() { return price_id; }
@@ -33,5 +36,6 @@
         public double getPriceValue() { return price_value;}
         public List<Rating> getRatings() {  return ratings; }
         public List<Comment> getComments() {  return comments; }
+        public int getRegion() { return region_id; }
     }
 }
