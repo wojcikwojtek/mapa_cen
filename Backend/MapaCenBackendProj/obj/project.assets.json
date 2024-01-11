@@ -5393,39 +5393,23 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
     "C:\\Users\\Michał\\.nuget\\packages\\": {},
-=======
-    "C:\\Users\\wojte\\.nuget\\packages\\": {},
->>>>>>> 2974b4b8f09240119db2aff491dce14a16d0f58e
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Michał\\OneDrive\\Pulpit\\mapa_cen\\Backend\\MapaCenBackendProj\\MapaCenBackend.csproj",
       "projectName": "MapaCenBackend",
       "projectPath": "C:\\Users\\Michał\\OneDrive\\Pulpit\\mapa_cen\\Backend\\MapaCenBackendProj\\MapaCenBackend.csproj",
       "packagesPath": "C:\\Users\\Michał\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Michał\\OneDrive\\Pulpit\\mapa_cen\\Backend\\MapaCenBackendProj\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\wojte\\Desktop\\Wojtek\\studia\\IO\\MapaCen\\mapa_cen\\Backend\\MapaCenBackendProj\\MapaCenBackend.csproj",
-      "projectName": "MapaCenBackend",
-      "projectPath": "C:\\Users\\wojte\\Desktop\\Wojtek\\studia\\IO\\MapaCen\\mapa_cen\\Backend\\MapaCenBackendProj\\MapaCenBackend.csproj",
-      "packagesPath": "C:\\Users\\wojte\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\wojte\\Desktop\\Wojtek\\studia\\IO\\MapaCen\\mapa_cen\\Backend\\MapaCenBackendProj\\obj\\",
->>>>>>> 2974b4b8f09240119db2aff491dce14a16d0f58e
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-<<<<<<< HEAD
         "C:\\Users\\Michał\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-        "C:\\Users\\wojte\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> 2974b4b8f09240119db2aff491dce14a16d0f58e
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5506,5 +5490,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Wystąpił problem podczas czytania pliku pamięci podręcznej C:\\Users\\Michał\\OneDrive\\Pulpit\\mapa_cen\\Backend\\MapaCenBackendProj\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
