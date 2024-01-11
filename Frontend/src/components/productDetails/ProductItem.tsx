@@ -16,8 +16,8 @@ const ProductItem = ({priceInfo,updateComponent}:Props) => {
     const userStore=useUserStore();
     const [showAddComment,setShowAddComment]=useState(false);
     const [showComments,setShowComments]=useState(false);
-    const [positiveOpinionIsGiven,setPositiveOpinionIsGiven]=useState(false);
-    const [negativeOpinionIsGiven,setNegativeOpinionIsGiven]=useState(false);
+    const [positiveOpinions,setPositiveOpinions]=useState(priceInfo.upvotes);
+    const [negativeOpinions,setNegativeOpinions]=useState(priceInfo.downvotes);
    
     
 
@@ -40,24 +40,35 @@ const ProductItem = ({priceInfo,updateComponent}:Props) => {
           commentRef.current?.focus();
         }
       }, [showAddComment]);
+
+      useEffect(()=>{
+        setPositiveOpinions(priceInfo.upvotes); 
+        setNegativeOpinions(priceInfo.downvotes); 
+      },[priceInfo]);
+
     const handleLikeOpinionClick=()=>{
         apiClient.updateOpinionForPrice(userStore.userId,priceInfo.priceId,true)
         .then(res=>{
-          if(res.success){
-        setPositiveOpinionIsGiven(!positiveOpinionIsGiven);
-        setNegativeOpinionIsGiven(false);
-        updateComponent();
-          }});
+          if(res){
+            updateComponent();
+          }
+          else{
+            updateComponent();  
+          }
+          });
+          
     }
     const handleDislikeOpinionClick=()=>{
         apiClient.updateOpinionForPrice(userStore.userId,priceInfo.priceId,false)
         .then(res=>{
-          if(res.success){
-          setNegativeOpinionIsGiven(!negativeOpinionIsGiven);
-          setPositiveOpinionIsGiven(false);
-          updateComponent();
+          if(res){
+            updateComponent();  
           }
-        })
+          else{
+            updateComponent();  
+          }
+        });
+        
     }
   
   return (
@@ -67,11 +78,13 @@ const ProductItem = ({priceInfo,updateComponent}:Props) => {
        <span style={{marginRight:'10px'}}>cena {priceInfo.priceValue}zł</span>
        <div className='flexCenter' style={{marginRight:'10px'}}>
         <div style={{cursor:'pointer'}} onClick={handleLikeOpinionClick}><BiLike size={20}  color="green"/></div>
-        {positiveOpinionIsGiven ? (priceInfo.upvotes+1) :priceInfo.upvotes}
+        {positiveOpinions}
+        {/* {positiveOpinionIsGiven ? (priceInfo.upvotes) :priceInfo.upvotes} */}
         </div>
         <div className='flexCenter' style={{marginRight:'10px'}}>
         <div style={{cursor:'pointer'}} onClick={handleDislikeOpinionClick}><BiDislike size={20}  color="red"/></div>
-        {negativeOpinionIsGiven ? (priceInfo.downvotes+1) :priceInfo.downvotes}
+        {negativeOpinions}
+        {/* {negativeOpinionIsGiven ? (priceInfo.downvotes) :priceInfo.downvotes} */}
         </div>
       </p>
       <p>
