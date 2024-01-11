@@ -16,6 +16,9 @@ export interface RegionResponse{
   id:number;
   name:string;
 }
+export interface ProductsResponse{
+  products:Product[];
+}
 
 
 export const axiosInstance= axios.create({
@@ -67,6 +70,13 @@ class APIClient{
       return axiosInstance.put("/Region/region/"+provinceId+"/user/"+userId).then(res=>res.data);
     }
 
+    addComment=(priceId: number,userId:number,content:string)=>{
+      return axiosInstance.post("/Product/addComment",{priceId:priceId,userId:userId,content:content}).then(res=>res.data);
+    }
+
+    getMostPopular=()=>{
+      return axiosInstance.get<ProductsResponse>("/Product/showMostPopularProducts").then(res=>res.data);
+    }
   
   
 }
