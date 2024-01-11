@@ -122,7 +122,7 @@ namespace MapaCenBackend.Controllers
         }
 
         [HttpPost("updateRating")]
-        public void updateRating([FromBody] UpdateRatingRequest updateRatingRequest)
+        public bool updateRating([FromBody] UpdateRatingRequest updateRatingRequest)
         {
             try
             {
@@ -130,7 +130,6 @@ namespace MapaCenBackend.Controllers
                 MySqlConnection conn = new MySqlConnection();
                 conn.ConnectionString = connstring;
                 conn.Open();
-                bool found = false;
                 string sql = "select * from ratings where user_id = @user_id_arg and price_id = @price_id_arg";
                 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
@@ -142,12 +141,14 @@ namespace MapaCenBackend.Controllers
                         if (reader.Read())
                         {
                             bool isPositiveDB = reader.GetString("is_positive") == "1";
+                            string connstring2 = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
+                            MySqlConnection conn2 = new MySqlConnection();
+                            conn2.ConnectionString = connstring2;
+                            conn2.Open();
+                            
                             if ( isPositiveDB != updateRatingRequest.positive )
                             {
-                                string connstring2 = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
-                                MySqlConnection conn2 = new MySqlConnection();
-                                conn2.ConnectionString = connstring2;
-                                conn2.Open();
+                                
                                 string sql2 = "update ratings set is_positive = @is_positive_arg where ratings.price_id = @price_id_arg and ratings.user_id=@user_id_arg ;";
                                 using (MySqlCommand cmd2 = new MySqlCommand(sql2, conn2))
                                 {
@@ -156,8 +157,19 @@ namespace MapaCenBackend.Controllers
                                     cmd2.Parameters.AddWithValue("@is_positive_arg", updateRatingRequest.positive);
                                     cmd2.ExecuteNonQuery();
                                 }
+                                return true;
                             }
-                            
+                            else
+                            {
+                                string sql2 = "delete from ratings where ratings.price_id = @price_id_arg and ratings.user_id=@user_id_arg ;";
+                                using (MySqlCommand cmd2 = new MySqlCommand(sql2, conn2))
+                                {
+                                    cmd2.Parameters.AddWithValue("@price_id_arg", updateRatingRequest.priceId);
+                                    cmd2.Parameters.AddWithValue("@user_id_arg", updateRatingRequest.userId);
+                                    cmd2.ExecuteNonQuery();
+                                }
+                                return false;
+                            }
                         }
                         else
                         {
@@ -173,7 +185,7 @@ namespace MapaCenBackend.Controllers
                                 cmd2.Parameters.AddWithValue("@is_positive_arg", updateRatingRequest.positive);
                                 cmd2.ExecuteNonQuery();
                             }
-                            
+                            return true;
                         }
                     }
 
@@ -182,6 +194,7 @@ namespace MapaCenBackend.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine("Failed to insert to mysql db");
+                return false;
             }
 
         }
