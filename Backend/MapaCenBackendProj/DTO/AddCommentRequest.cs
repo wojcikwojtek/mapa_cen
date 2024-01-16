@@ -7,11 +7,14 @@
         public int userId { get; set; }
         public string content { get; set; }
 
+        public int regionId { get; set; }
+
         public AddCommentRequest(int priceId, string content, int userId)
         {
             this.priceId = priceId;
             this.content = content;
             this.userId = userId;
+            this.regionId = regionId;
         }
 
     }

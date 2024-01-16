@@ -10,11 +10,14 @@ namespace MapaCenBackend.DTO
 
         public double priceValue { get; set; }
 
+        public int regionId { get; set; }
+
         public AddPriceRequest( int productId, string shopAddress, double priceValue)
         {
             this.productId = productId;
             this.shopAddress = shopAddress;
             this.priceValue = priceValue;
+            this.regionId = regionId;
         }
     }
 }
