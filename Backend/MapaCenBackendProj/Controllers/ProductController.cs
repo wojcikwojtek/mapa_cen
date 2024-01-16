@@ -76,13 +76,14 @@ namespace MapaCenBackend.Controllers
                 MySqlConnection conn = new MySqlConnection();
                 conn.ConnectionString = connstring;
                 conn.Open();
-                string sql = "insert into prices(product_id, shop_address, date, price_value) values(@product_id_arg, @address_arg, @datetime_arg, @price_value_arg);";
+                string sql = "insert into prices(product_id, shop_address, date, price_value, region_id) values(@product_id_arg, @address_arg, @datetime_arg, @price_value_arg, @region_id_arg);";
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@product_id_arg", addPriceRequest.productId );
                     cmd.Parameters.AddWithValue("@address_arg", addPriceRequest.shopAddress );
                     cmd.Parameters.AddWithValue("@datetime_arg", curretnDateTime );
                     cmd.Parameters.AddWithValue("@price_value_arg", addPriceRequest.priceValue );
+                    cmd.Parameters.AddWithValue("@region_id_arg", addPriceRequest.regionId );
                     cmd.ExecuteNonQuery();
                 }
             }
