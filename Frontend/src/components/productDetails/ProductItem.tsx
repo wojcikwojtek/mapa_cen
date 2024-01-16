@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, {  useEffect, useRef, useState } from 'react'
 import { Price } from '../../entities/price'
 import { BiLike } from "react-icons/bi";
 import { BiDislike } from "react-icons/bi";
@@ -7,39 +7,68 @@ import useUserStore from '../../store';
 
 interface Props{
     priceInfo:Price;
+    updateComponent:()=>void;
 }
 
 const apiClient=new APIClient();
 
-const ProductItem = ({priceInfo}:Props) => {
+const ProductItem = ({priceInfo,updateComponent}:Props) => {
     const userStore=useUserStore();
     const [showAddComment,setShowAddComment]=useState(false);
     const [showComments,setShowComments]=useState(false);
-    // const [guestComment, setGuestComment] = useState('');
-    const [positiveOpinionIsGiven,setPositiveOpinionIsGiven]=useState(false);
-    const [negativeOpinionIsGiven,setNegativeOpinionIsGiven]=useState(false);
+    const [positiveOpinions,setPositiveOpinions]=useState(priceInfo.upvotes);
+    const [negativeOpinions,setNegativeOpinions]=useState(priceInfo.downvotes);
+   
+    
 
 
     const commentRef=useRef<HTMLInputElement>(null);
     const handleInputChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-       //dodawanie komentarza
-    //    setGuestComment(commentRef.current?.value||'');
+        if (e.key === 'Enter' && commentRef.current != undefined) {
+       apiClient.addComment(priceInfo.priceId,userStore.userId,commentRef.current?.value)
+       .then(()=>{
+        updateComponent();
+       }
+       );
+       setShowComments(true);
        setShowAddComment(false);
-        }
+      }
       };
+
+      useEffect(() => {
+        if (showAddComment) {
+          commentRef.current?.focus();
+        }
+      }, [showAddComment]);
+
+      useEffect(()=>{
+        setPositiveOpinions(priceInfo.upvotes); 
+        setNegativeOpinions(priceInfo.downvotes); 
+      },[priceInfo]);
+
     const handleLikeOpinionClick=()=>{
-        setPositiveOpinionIsGiven(!positiveOpinionIsGiven);
-        setNegativeOpinionIsGiven(false);
-        console.log("halo");
-        console.log(userStore.userId);
-        console.log(priceInfo.priceId);
-        apiClient.updateOpinionForPrice(userStore.userId,priceInfo.priceId,true);
+        apiClient.updateOpinionForPrice(userStore.userId,priceInfo.priceId,true)
+        .then(res=>{
+          if(res){
+            updateComponent();
+          }
+          else{
+            updateComponent();  
+          }
+          });
+          
     }
     const handleDislikeOpinionClick=()=>{
-        setNegativeOpinionIsGiven(!negativeOpinionIsGiven);
-        setPositiveOpinionIsGiven(false);
-        apiClient.updateOpinionForPrice(userStore.userId,priceInfo.priceId,false);
+        apiClient.updateOpinionForPrice(userStore.userId,priceInfo.priceId,false)
+        .then(res=>{
+          if(res){
+            updateComponent();  
+          }
+          else{
+            updateComponent();  
+          }
+        });
+        
     }
   
   return (
@@ -49,11 +78,13 @@ const ProductItem = ({priceInfo}:Props) => {
        <span style={{marginRight:'10px'}}>cena {priceInfo.priceValue}zł</span>
        <div className='flexCenter' style={{marginRight:'10px'}}>
         <div style={{cursor:'pointer'}} onClick={handleLikeOpinionClick}><BiLike size={20}  color="green"/></div>
-        {positiveOpinionIsGiven ? (priceInfo.upvotes+1) :priceInfo.upvotes}
+        {positiveOpinions}
+        {/* {positiveOpinionIsGiven ? (priceInfo.upvotes) :priceInfo.upvotes} */}
         </div>
         <div className='flexCenter' style={{marginRight:'10px'}}>
         <div style={{cursor:'pointer'}} onClick={handleDislikeOpinionClick}><BiDislike size={20}  color="red"/></div>
-        {negativeOpinionIsGiven ? (priceInfo.downvotes+1) :priceInfo.downvotes}
+        {negativeOpinions}
+        {/* {negativeOpinionIsGiven ? (priceInfo.downvotes) :priceInfo.downvotes} */}
         </div>
       </p>
       <p>
@@ -64,12 +95,12 @@ const ProductItem = ({priceInfo}:Props) => {
       <p onClick={()=>setShowAddComment(!showAddComment)}>{!showAddComment?'dodaj komentarz':'anuluj'}</p>
       <p onClick={()=>setShowComments(!showComments)}>{!showComments?'zobacz komentarze':'schowaj komentarze'}</p>
       </div>
-      {showAddComment && <input type='text' ref={commentRef}  
-      placeholder='komentarz' onKeyDown={(e)=>handleInputChange(e)}/>}
+      {showAddComment && <input type='text'  ref={commentRef}  
+      placeholder='komentarz' onKeyDown={(e)=>{handleInputChange(e)}}/>}
       {showComments && 
        priceInfo.comments.map(comment=>
         <div style={{display:'flex',flexDirection:'column',height:'60px',marginTop:'10px',padding:'5px'}}>
-        <hr style={{width:'100%',height:'1px'}}/>
+        <hr style={{width:'100%',height:'1px',marginBottom:'10px'}}/>
         
         <p>
         <strong>{comment.username}: </strong>
@@ -88,4 +119,4 @@ const ProductItem = ({priceInfo}:Props) => {
   )
 }
 
-export default ProductItem
+export default ProductItem;

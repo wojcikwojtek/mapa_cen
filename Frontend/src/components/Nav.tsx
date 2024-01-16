@@ -1,6 +1,6 @@
 import {useRef, useState } from 'react'
 import { FaRegUser} from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useUserStore from '../store'
 import APIClient from '../services/api-client'
 import useProvinces from '../hooks/useProvinces'
@@ -11,13 +11,16 @@ const Nav = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [showPopUp,setShowPopUp]=useState('0');
   const [showChangeProvincePopUp,setShowChangeProvincePopUp]=useState(false);
+  const [searchValue,setSearchValue]=useState('');
   const apiClient=new APIClient();
+  const navigate=useNavigate();
 
   const provinceData = useProvinces();
     if(userStore.username=="gość"){
       const username =localStorage.getItem("username");
       const userId =localStorage.getItem("userId");
       const province =localStorage.getItem("province");
+      
       if(username!=null && userId != null &&province != null){
         userStore.setUsername(username);
         userStore.setUserId(parseInt(userId));
@@ -42,6 +45,7 @@ const Nav = () => {
 
   const handleSearch=(event: { key: string })=>{
     if (event.key === 'Enter') {
+      navigate('/');
       const searchProduct = searchInputRef.current;
       if (searchProduct) {
         console.log(searchProduct.value);
@@ -50,14 +54,18 @@ const Nav = () => {
     }
   }
  
+  const handleBackToMainPage=()=>{
+    setSearchValue('');
+    userStore.setSearchProduct('');
+    navigate('/');
+  }
 
 
   return (
-<nav><>
-  <Link to={'/'} style={{textDecoration:'none',color:'black'}}>
-    <h1>Mapa Cen</h1>
-  </Link>
-    <input type="text" className="searchField" placeholder="Enter your search term" ref={searchInputRef}
+<nav>
+  <>
+    <h1 style={{cursor:'pointer'}} onClick={handleBackToMainPage}>Mapa Cen</h1>
+    <input type="text" value={searchValue} onChange={()=>setSearchValue(searchInputRef.current?.value||'')} className="searchField" placeholder="Enter your search term" ref={searchInputRef}
      onKeyDown={handleSearch}/>
       <div className='userPanel' onKeyDown={()=>setShowPopUp(showPopUp==='1'?'0':'1')}>
     <div className='userIcon'onClick={()=>setShowPopUp(showPopUp==='1'?'0':'1')}>

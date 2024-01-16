@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
 *{
   margin: 0;
   padding:0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .flexCenter{
@@ -40,6 +43,7 @@ nav{
   align-items: center;
   margin-right: 20px;
   cursor: pointer;
+  
 }
 .userIcon{
   margin-right: 20px;
@@ -115,10 +119,18 @@ transition: 0.1s;
 main{
   position: relative;
   height:90vh;
-  background-color: bisque;
-  padding: 20px;
+  background-color: #E9F1FA;
+  /* background-color: #0A1828; */
+  padding: 40px;
 }
 
+main p{
+  /* font-size: 30px; */
+}
+main h2{
+  margin-bottom: 20px;
+  font-size: 30px;
+}
 
 
 .mapWrapper{
@@ -167,6 +179,8 @@ main{
   width: 350px;
   padding:5px;
   margin: 10px auto;
+  max-height: 650px;
+  overflow-y:auto
 }
 
 .singleProvince{
@@ -253,4 +267,50 @@ input[type=submit] {
 
 input[type=submit]:hover {
   background-color: rgba(60, 188, 141, 0.8);
+}
+
+
+.mostViewedWrapper{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.mostViewedWrapper > h1{
+  position: absolute;
+  top: 50px;
+  color:#00ABE4
+}
+
+.mostViewedItem{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  height: 300px;
+  width: 350px;
+  margin-top: 100px;
+  margin-left: 100px;
+  margin-right: 100px;
+  color: black;
+  /* background-color: #00ABE4; */
+  border-radius: 20px;
+  padding: 10px;
+  border:5px solid white;
+}
+
+.mostViewedItem img{
+  filter: drop-shadow(30px 10px 4px #00ABE4);
+  width: 350px;
+  height: 200px;
+  display: block;
+  object-fit: contain;
+}
+
+
+
+.mostViewedItem:nth-of-type(4),.mostViewedItem:nth-of-type(5),.mostViewedItem:nth-of-type(6){
+  margin-top: 70px;
 }
