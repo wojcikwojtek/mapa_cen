@@ -70,13 +70,43 @@ class APIClient{
       return axiosInstance.put("/Region/region/"+provinceId+"/user/"+userId).then(res=>res.data);
     }
 
-    addComment=(priceId: number,userId:number,content:string)=>{
-      return axiosInstance.post("/Product/addComment",{priceId:priceId,userId:userId,content:content}).then(res=>res.data);
-    }
+    // addComment=(priceId: number,userId:number,content:string,photo?:File)=>{
+    //   const formData = new FormData();
+    //   if(photo){
+    //     formData.append('file',photo);
+    //     return axiosInstance.post("/Product/addComment",{priceId:priceId,userId:userId,content:content,photo:formData}).then(res=>res.data);
+    //   }else{
+    //     return axiosInstance.post("/Product/addComment",{priceId:priceId,userId:userId,content:content}).then(res=>res.data);
+    //   }
+    // }
+
+    addComment = (priceId: number, userId: number, content: string, photo?: File) => {
+      const formData = new FormData();
+    
+      formData.append('priceId', priceId.toString());
+      formData.append('userId', userId.toString());
+      formData.append('content', content);
+    
+      if (photo) {
+        formData.append('file', photo);
+    
+        return axiosInstance.post('/Product/addComment', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+          .then((res) => res.data);
+      } else {
+        return axiosInstance.post('/Product/addComment', formData)
+          .then((res) => res.data);
+      }
+    };
 
     getMostPopular=()=>{
       return axiosInstance.get<ProductsResponse>("/Product/showMostPopularProducts").then(res=>res.data);
     }
+
+
   
   
 }

@@ -1,4 +1,4 @@
-import React, {  useEffect, useRef, useState } from 'react'
+import React, {  ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Price } from '../../entities/price'
 import { BiLike } from "react-icons/bi";
 import { BiDislike } from "react-icons/bi";
@@ -16,6 +16,7 @@ const ProductItem = ({priceInfo,updateComponent}:Props) => {
     const userStore=useUserStore();
     const [showAddComment,setShowAddComment]=useState(false);
     const [showComments,setShowComments]=useState(false);
+    const [newCommentPhoto, setNewCommentPhoto] = useState<File | null>(null);
     const [positiveOpinions,setPositiveOpinions]=useState(priceInfo.upvotes);
     const [negativeOpinions,setNegativeOpinions]=useState(priceInfo.downvotes);
    
@@ -23,9 +24,10 @@ const ProductItem = ({priceInfo,updateComponent}:Props) => {
 
 
     const commentRef=useRef<HTMLInputElement>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
     const handleInputChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && commentRef.current != undefined) {
-       apiClient.addComment(priceInfo.priceId,userStore.userId,commentRef.current?.value)
+       apiClient.addComment(priceInfo.priceId,userStore.userId,commentRef.current?.value,newCommentPhoto||undefined)
        .then(()=>{
         updateComponent();
        }
@@ -45,6 +47,21 @@ const ProductItem = ({priceInfo,updateComponent}:Props) => {
         setPositiveOpinions(priceInfo.upvotes); 
         setNegativeOpinions(priceInfo.downvotes); 
       },[priceInfo]);
+
+    
+
+  const handleAddPhoto = (e: ChangeEvent<HTMLInputElement>) =>  {
+    if(e.target.files){
+      const file = e.target.files[0];  
+      setNewCommentPhoto(file);
+    }
+  };
+
+  const handleCustomButtonClick = () => {
+    if(fileInputRef.current){
+      fileInputRef.current.click();
+    }
+  };
 
     const handleLikeOpinionClick=()=>{
         apiClient.updateOpinionForPrice(userStore.userId,priceInfo.priceId,true)
@@ -95,25 +112,39 @@ const ProductItem = ({priceInfo,updateComponent}:Props) => {
       <p onClick={()=>setShowAddComment(!showAddComment)}>{!showAddComment?'dodaj komentarz':'anuluj'}</p>
       <p onClick={()=>setShowComments(!showComments)}>{!showComments?'zobacz komentarze':'schowaj komentarze'}</p>
       </div>
-      {showAddComment && <input type='text'  ref={commentRef}  
-      placeholder='komentarz' onKeyDown={(e)=>{handleInputChange(e)}}/>}
+      {showAddComment && 
+      <>
+      <input type='text'  ref={commentRef}  
+      placeholder='komentarz' onKeyDown={(e)=>{handleInputChange(e)}}/>
+      <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        onChange={handleAddPhoto}
+      />
+      <button onClick={handleCustomButtonClick}>Załącz zdjęcie</button>
+      </>
+      }
       {showComments && 
        priceInfo.comments.map(comment=>
-        <div style={{display:'flex',flexDirection:'column',height:'60px',marginTop:'10px',padding:'5px'}}>
-        <hr style={{width:'100%',height:'1px',marginBottom:'10px'}}/>
-        
+        <>
+        <hr style={{width:'100%',height:'1px',marginTop:'10px'}}/>
+        <div style={{display:'flex',height:'60px',marginTop:'10px',padding:'5px'}}>
+        <div style={{display:'flex',flexDirection:'column',width:'100%',height:'100%'}}>
         <p>
         <strong>{comment.username}: </strong>
         <span>{comment.date}</span>
         <br></br>
         </p>
-        <div style={{display:'flex',width:'100%',height:'100%'}}>
+        
         <div style={{flexGrow:1}}><p>{comment.content}</p></div>
-        <div className='flexCenter' style={{width:'20%'}}>
-        {comment.picture&&<img height='100%' src={comment.picture}/>}
+        </div>
+        <div className='flexCenter' style={{width:'20%',paddingRight:'10px',cursor:'pointer'}}>
+        {comment.picture&&<img height='100%' width='70px' style={{marginBottom:'0px'}} 
+        src={URL.createObjectURL(comment.picture)}/>}
         </div>
         </div>
-        </div>)
+        </>)
       }
       </div>
   )
