@@ -6,13 +6,14 @@ import APIClient from '../../services/api-client';
 import useUserStore from '../../store';
 
 interface Props{
+    regionId:number;
     priceInfo:Price;
     updateComponent:()=>void;
 }
 
 const apiClient=new APIClient();
 
-const ProductItem = ({priceInfo,updateComponent}:Props) => {
+const ProductItem = ({priceInfo,regionId,updateComponent}:Props) => {
     const userStore=useUserStore();
     const [showAddComment,setShowAddComment]=useState(false);
     const [showComments,setShowComments]=useState(false);
@@ -27,7 +28,7 @@ const ProductItem = ({priceInfo,updateComponent}:Props) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const handleInputChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && commentRef.current != undefined) {
-       apiClient.addComment(priceInfo.priceId,userStore.userId,commentRef.current?.value,newCommentPhoto||undefined)
+       apiClient.addComment(regionId,priceInfo.priceId,userStore.userId,commentRef.current?.value,newCommentPhoto||undefined)
        .then(()=>{
         updateComponent();
        }

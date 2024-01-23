@@ -95,7 +95,7 @@ namespace MapaCenBackend.Controllers
         }
 
         [HttpPost("addComment")]
-        public void addComment([FromBody] AddCommentRequest addCommentRequest)
+        public void addComment([FromForm] AddCommentRequest addCommentRequest)
         {
             try
             {
