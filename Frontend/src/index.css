@@ -118,7 +118,7 @@ transition: 0.1s;
 
 main{
   position: relative;
-  height:90vh;
+  min-height:90vh;
   background-color: #E9F1FA;
   /* background-color: #0A1828; */
   padding: 40px;

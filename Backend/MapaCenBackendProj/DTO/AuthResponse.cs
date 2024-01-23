@@ -7,12 +7,15 @@
         public bool authorized { get; set; }
         public int id_regionu { get; set; }
 
-        public AuthResponse(int userId,string username, bool authorized, int id_regionu)
+        public bool isAdmin { get; set; }
+
+        public AuthResponse(int userId,string username, bool authorized, int id_regionu, bool isAdmin)
         {
             this.userId = userId;
             this.username = username;
             this.authorized = authorized;
             this.id_regionu = id_regionu;
+            this.isAdmin = isAdmin;
         }
     }
 }
