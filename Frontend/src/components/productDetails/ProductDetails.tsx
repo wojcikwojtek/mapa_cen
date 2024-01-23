@@ -71,10 +71,7 @@ const ProductDetails = () => {
       {productPrices.data?.length !=0 ?
       <>
       {productPrices.data?.map(price=>
-      {
-      console.log(price);
-      <ProductItem key={price.priceId} priceInfo={price} updateComponent={()=>{productPrices.refetch();}}/>
-      }
+       <ProductItem key={price.priceId} priceInfo={price} updateComponent={()=>{productPrices.refetch();}}/>
       )}
       </>
       :
