@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { ChangeEvent, useRef, useState } from 'react'
 import APIClient from '../services/api-client';
 
 const apiClient = new APIClient();
@@ -20,14 +20,20 @@ const AdminPanel = () => {
       }
     }
   
-      const handlePhotChange=()=>{
-        if(photoRef.current){
-          const photo=photoRef.current.value.toString();
-          setPhoto(photo);
-        }}
+      const handleAddPhoto=(e: ChangeEvent<HTMLInputElement>)=>{
+        if(e.target.files){
+          const file = e.target.files[0];  
+          setPhoto(file);
+        }
+      }
 
-    const handleSubmit=()=>{
+    const handleSubmit=(e)=>{
+      e.preventDefault();
+      if(!photo && nameRef.current && category && photoRef.current){
         apiClient.addNewProduct(name,category,photo);
+        nameRef.current.value="";
+        photoRef.current.value=undefined;
+      }
     }
 
   return (
@@ -53,7 +59,7 @@ const AdminPanel = () => {
 
     <div>
     <label htmlFor="productImage">Zdjęcie produktu:</label>
-    <input type="file" id="productImage" ref={photoRef} onChange={handlePhotChange} name="productImage" accept="image/*" required/>
+    <input type="file" id="productImage" ref={photoRef} onChange={handleAddPhoto}/>
     </div>
     <button onClick={handleSubmit}>dodaj produkt</button>
     </form>

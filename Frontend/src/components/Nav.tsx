@@ -83,7 +83,7 @@ const Nav = () => {
   <>
   <div className='userPopUp' style={userStore.hasAdmin?{scale:showPopUp,zIndex:'4'}
   :{scale:showPopUp,zIndex:'4',top:'-30px'}}>
-  {!userStore.hasAdmin &&
+  {userStore.hasAdmin &&
   <Link to={'/adminPanel'} style={{textDecoration:'none'}}><div> 
   admin panel
   </div></Link>}

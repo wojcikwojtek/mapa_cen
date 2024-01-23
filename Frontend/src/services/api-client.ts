@@ -81,25 +81,7 @@ class APIClient{
     // }
 
     addComment = (priceId: number, userId: number, content: string, photo?: File) => {
-      const formData = new FormData();
-    
-      formData.append('priceId', priceId.toString());
-      formData.append('userId', userId.toString());
-      formData.append('content', content);
-    
-      if (photo) {
-        formData.append('file', photo);
-    
-        return axiosInstance.post('/Product/addComment', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-          .then((res) => res.data);
-      } else {
-        return axiosInstance.post('/Product/addComment', formData)
-          .then((res) => res.data);
-      }
+        return axiosInstance.post('/Product/addComment',{priceId:priceId,userId:userId,content:content,regionId:12,picture:photo}).then((res) => res.data);
     };
 
     getMostPopular=()=>{
@@ -107,7 +89,9 @@ class APIClient{
     }
 
     addNewProduct=(name:string,category:number,photo?:File)=>{
-      return axiosInstance.post("/Admin/addProduct",{product_name:name,category_id:category,picture:photo}).then(res=>res.data);
+      if(!photo){
+        return axiosInstance.post("/Admin/addProduct",{product_name:name,category_id:category,picture:""}).then(res=>res.data);
+      }
     }
 
 
