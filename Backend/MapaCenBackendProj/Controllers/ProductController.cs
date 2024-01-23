@@ -95,7 +95,7 @@ namespace MapaCenBackend.Controllers
         }
 
         [HttpPost("addComment")]
-        public void addComment([FromBody] AddCommentRequest addCommentRequest)
+        public void addComment([FromForm] FileModel addCommentRequest)
         {
             try
             {
@@ -108,11 +108,11 @@ namespace MapaCenBackend.Controllers
                 string sql = "insert into comments(price_id, user_id, date, content) values(@price_id_arg , @user_id_arg , @datetime_arg, @content_arg);";
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                 {
-                    cmd.Parameters.AddWithValue("@price_id_arg", addCommentRequest.priceId);
-                    cmd.Parameters.AddWithValue("@user_id_arg", addCommentRequest.userId);
-                    cmd.Parameters.AddWithValue("@datetime_arg", curretnDateTime);
-                    cmd.Parameters.AddWithValue("@content_arg", addCommentRequest.content);
-                    cmd.ExecuteNonQuery();
+                    //cmd.Parameters.AddWithValue("@price_id_arg", addCommentRequest.priceId);
+                    //cmd.Parameters.AddWithValue("@user_id_arg", addCommentRequest.userId);
+                    //cmd.Parameters.AddWithValue("@datetime_arg", curretnDateTime);
+                    //cmd.Parameters.AddWithValue("@content_arg", addCommentRequest.content);
+                    //cmd.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
