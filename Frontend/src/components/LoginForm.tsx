@@ -23,11 +23,11 @@ const LoginForm = () => {
           userStore.setUsername(data.login);
           userStore.setUserId(res.userId);
           userStore.setUserRegion(res.id_regionu);
-          userStore.setHasAdmin(res.hasAdmin);
+          userStore.setHasAdmin(res.isAdmin);
           localStorage.setItem("username",data.login);
           localStorage.setItem("userId",res.userId);
           localStorage.setItem("province",res.id_regionu);
-          localStorage.setItem("hasAdmin",res.hasAdmin);
+          localStorage.setItem("hasAdmin",res.isAdmin);
           navigate("/");
         }else{
           setLoginError(true);
