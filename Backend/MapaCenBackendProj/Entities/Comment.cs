@@ -12,9 +12,9 @@
 
         private string content;
 
-        private string picture;
+        private byte[] picture;
 
-        public Comment(int comment_id, int price_id, int user_id, string date, string content, string picture)
+        public Comment(int comment_id, int price_id, int user_id, string date, string content, byte[] picture)
         {
             this.comment_id = comment_id;
             this.price_id = price_id;
@@ -26,6 +26,6 @@
         public int getUserId() { return user_id; }
         public string getDate() { return date; }
         public string getContent() { return content; }
-        public string getPicture() { return picture; }
+        public byte[] getPicture() { return picture; }
     }
 }
