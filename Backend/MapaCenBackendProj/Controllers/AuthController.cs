@@ -15,11 +15,12 @@ namespace MapaCenBackend.Controllers
         {
             try
             {
+                
                 string connstring = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
                 MySqlConnection conn = new MySqlConnection();
                 conn.ConnectionString = connstring;
                 conn.Open();
-                string sql = "select user_id, username, password, id_regionu from users where username = @usernamearg";
+                string sql = "select user_id, username, password, id_regionu, is_admin from users where username = @usernamearg";
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@usernamearg", loginRequest.username);
@@ -29,21 +30,22 @@ namespace MapaCenBackend.Controllers
                         int userId = int.Parse(reader.GetString("user_id"));
                         string usrnm = reader.GetString("username");
                         string paswd = reader.GetString("password");
+                        bool isAdmin = bool.Parse(reader.GetString("is_admin"));
                         int idRegionu = reader.GetString("id_regionu") == null ? 0 : int.Parse(reader.GetString("id_regionu"));
                         if (usrnm != null && usrnm != "")
                         {
                             if (loginRequest.password == paswd)
                             {
-                                return new AuthResponse(userId,loginRequest.username, true, idRegionu);
+                                return new AuthResponse(userId,loginRequest.username, true, idRegionu, isAdmin);
                             }
                         }
-                        return new AuthResponse(userId, loginRequest.username, false, idRegionu);
+                        return new AuthResponse(userId, loginRequest.username, false, idRegionu, false);
                     }
                 }
             }
             catch (Exception ex)
             {
-                return new AuthResponse(-1,loginRequest.username, false, 0);
+                return new AuthResponse(-1,loginRequest.username, false, 0, false);
             }
         }
 
