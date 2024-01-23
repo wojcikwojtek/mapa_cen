@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MapaCenBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+92875b9b5840bfdd637b1601c41d12120dc39223")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d7d2a6696f6691e7d00e7b1c2e7cb1d6265c930")]
 [assembly: System.Reflection.AssemblyProductAttribute("MapaCenBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MapaCenBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

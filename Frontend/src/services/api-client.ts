@@ -63,7 +63,7 @@ class APIClient{
         productId:productId,
         regionId:regionId,
       }
-      return axiosInstance.get<Price[]>("/ProductDetail/prices/",{responseType:'arraybuffer',params}).then(res=>res.data);
+      return axiosInstance.get<Price[]>("/ProductDetail/prices/",{params}).then(res=>res.data);
     }
 
     updateDefaultProvince=(provinceId:number,userId:number)=>{
