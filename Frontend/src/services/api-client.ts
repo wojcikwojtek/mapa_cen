@@ -63,7 +63,7 @@ class APIClient{
         productId:productId,
         regionId:regionId,
       }
-      return axiosInstance.get<Price[]>("/ProductDetail/prices/",{params}).then(res=>res.data);
+      return axiosInstance.get<Price[]>("/ProductDetail/prices/",{responseType:'arraybuffer',params}).then(res=>res.data);
     }
 
     updateDefaultProvince=(provinceId:number,userId:number)=>{
@@ -104,6 +104,10 @@ class APIClient{
 
     getMostPopular=()=>{
       return axiosInstance.get<ProductsResponse>("/Product/showMostPopularProducts").then(res=>res.data);
+    }
+
+    addNewProduct=(name:string,category:number,photo?:File)=>{
+      return axiosInstance.post("/Admin/addProduct",{product_name:name,category_id:category,picture:photo}).then(res=>res.data);
     }
 
 

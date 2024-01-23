@@ -314,3 +314,54 @@ input[type=submit]:hover {
 .mostViewedItem:nth-of-type(4),.mostViewedItem:nth-of-type(5),.mostViewedItem:nth-of-type(6){
   margin-top: 70px;
 }
+
+
+.adminPanel{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  background-color:#E9F1FA;
+}
+.adminPanel h1,.adminPanel p{
+  position: absolute;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+.adminPanel h1{
+  top: 70px;
+}
+.adminPanel p{
+  top: 180px;
+  font-size: 26px;
+}
+
+.adminPanel form{
+  border: 1px solid black;
+  height: 380px;
+  width: 500px;
+  padding: 15px;
+  font-size: 20px;
+}
+
+.adminPanel form label{
+  flex-basis: 40%;
+}
+
+.adminPanel form div:first-child{
+  margin-top: 10px;
+}
+.adminPanel form div{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  margin:50px 0;
+}
+
+.adminPanel form button{
+width: 150px;
+height: 40px;
+margin-left:calc(50% - 75px);
+cursor: pointer;
+}

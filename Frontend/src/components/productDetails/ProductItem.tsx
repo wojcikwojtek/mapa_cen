@@ -141,13 +141,23 @@ const ProductItem = ({priceInfo,updateComponent}:Props) => {
         </div>
         <div className='flexCenter' style={{width:'20%',paddingRight:'10px',cursor:'pointer'}}>
         {comment.picture&&<img height='100%' width='70px' style={{marginBottom:'0px'}} 
-        src={URL.createObjectURL(comment.picture)}/>}
+         src={`data:image/png;base64,${arrayBufferToBase64(comment.picture)}`}/>}
         </div>
         </div>
         </>)
       }
       </div>
   )
+}
+
+function arrayBufferToBase64(buffer:ArrayBuffer) {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
 }
 
 export default ProductItem;

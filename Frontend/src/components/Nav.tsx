@@ -20,11 +20,13 @@ const Nav = () => {
       const username =localStorage.getItem("username");
       const userId =localStorage.getItem("userId");
       const province =localStorage.getItem("province");
+      const hasAdmin =!!localStorage.getItem("hasAdmin");
       
-      if(username!=null && userId != null &&province != null){
+      if(username!=null && userId != null &&province != null && hasAdmin != null){
         userStore.setUsername(username);
         userStore.setUserId(parseInt(userId));
         userStore.setUserRegion(parseInt(province));
+        userStore.setHasAdmin(hasAdmin);
       }
     }
 
@@ -78,7 +80,13 @@ const Nav = () => {
  
   
   {userStore.username!='gość' ?
-  <div className='userPopUp'  style={{scale:showPopUp,zIndex:'4'}}>
+  <>
+  <div className='userPopUp' style={userStore.hasAdmin?{scale:showPopUp,zIndex:'4'}
+  :{scale:showPopUp,zIndex:'4',top:'-30px'}}>
+  {!userStore.hasAdmin &&
+  <Link to={'/adminPanel'} style={{textDecoration:'none'}}><div> 
+  admin panel
+  </div></Link>}
   <div onClick={()=>{setShowPopUp('0');setShowChangeProvincePopUp(true)}}>
   ustaw województwo
   </div>
@@ -86,6 +94,7 @@ const Nav = () => {
   wyloguj
   </div> 
   </div>
+  </>
   :
   <div className='userPopUp'  style={{opacity:showPopUp,zIndex:'4',marginTop:'30px'}}>
   <Link to={'/auth/login'} style={{textDecoration: 'none'}}>
