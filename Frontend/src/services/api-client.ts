@@ -90,17 +90,13 @@ class APIClient{
     
       if (photo) {
         formData.append('picture', photo);
-    
+      }
+
         return axiosInstance.post('/Product/addComment', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
-        })
-          .then((res) => res.data);
-      } else {
-        return axiosInstance.post('/Product/addComment', formData)
-          .then((res) => res.data);
-      }
+        }).then((res) => res.data);
     };
 
     getMostPopular=()=>{

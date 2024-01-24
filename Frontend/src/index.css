@@ -333,7 +333,7 @@ input[type=submit]:hover {
   top: 70px;
 }
 .adminPanel p{
-  top: 180px;
+  margin-bottom: 400px;
   font-size: 26px;
 }
 

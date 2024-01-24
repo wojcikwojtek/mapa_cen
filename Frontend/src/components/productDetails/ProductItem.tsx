@@ -53,6 +53,7 @@ const ProductItem = ({priceInfo,regionId,updateComponent}:Props) => {
 
   const handleAddPhoto = (e: ChangeEvent<HTMLInputElement>) =>  {
     if(e.target.files){
+      console.log(e.target.files[0]);
       const file = e.target.files[0];  
       setNewCommentPhoto(file);
     }
