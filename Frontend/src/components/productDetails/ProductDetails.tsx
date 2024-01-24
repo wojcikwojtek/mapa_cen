@@ -75,7 +75,7 @@ const ProductDetails = () => {
       )}
       </>
       :
-      <h4 style={{marginTop:'20px'}}>Ten Produkt nie ma aktualnie rzadnych wpisów w tym Powiecie</h4>
+      <h4 style={{marginTop:'20px'}}>Ten Produkt nie ma aktualnie żadnych wpisów w tym Powiecie</h4>
       }
       </div>
       :
