@@ -8,8 +8,8 @@
         public string content { get; set; }
 
         public int regionId { get; set; }
-        public string picture { get; set; }
-        public AddCommentRequest(int priceId, string content, int userId, int regionId, string picture)
+        public IFormFile picture { get; set; }
+        public AddCommentRequest(int priceId, string content, int userId, int regionId, IFormFile picture)
         {
             this.priceId = priceId;
             this.content = content;
@@ -17,6 +17,7 @@
             this.regionId = regionId;
             this.picture = picture;
         }
+        
 
     }
 

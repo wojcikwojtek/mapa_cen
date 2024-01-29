@@ -80,15 +80,16 @@ class APIClient{
     //   }
     // }
 
-    addComment = (priceId: number, userId: number, content: string, photo?: File) => {
+    addComment = (regionId:number,priceId: number, userId: number, content: string, photo?: File) => {
       const formData = new FormData();
     
+      formData.append('regionId', regionId.toString());
       formData.append('priceId', priceId.toString());
       formData.append('userId', userId.toString());
       formData.append('content', content);
     
       if (photo) {
-        formData.append('file', photo);
+        formData.append('picture', photo);
     
         return axiosInstance.post('/Product/addComment', formData, {
           headers: {
