@@ -53,6 +53,7 @@ const ProductItem = ({priceInfo,regionId,updateComponent}:Props) => {
 
   const handleAddPhoto = (e: ChangeEvent<HTMLInputElement>) =>  {
     if(e.target.files){
+      console.log(e.target.files[0]);
       const file = e.target.files[0];  
       setNewCommentPhoto(file);
     }
@@ -142,7 +143,7 @@ const ProductItem = ({priceInfo,regionId,updateComponent}:Props) => {
         </div>
         <div className='flexCenter' style={{width:'20%',paddingRight:'10px',cursor:'pointer'}}>
         {comment.picture&&<img height='100%' width='70px' style={{marginBottom:'0px'}} 
-         src={`data:image/png;base64,${arrayBufferToBase64(comment.picture)}`}/>}
+         src={`data:image/jpeg;base64,${comment.picture}`}/>}
         </div>
         </div>
         </>)
