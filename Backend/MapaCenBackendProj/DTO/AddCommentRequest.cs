@@ -8,15 +8,15 @@
         public string content { get; set; }
 
         public int regionId { get; set; }
-<<<<<<< HEAD
-        public IFormFile picture { get; set; }
-        public AddCommentRequest(int priceId, string content, int userId, int regionId, IFormFile picture)
-=======
+
         public IFormFile file { get; set; }
 
-        public AddCommentRequest() { }
+        public AddCommentRequest()
+        {
+
+        }
+
         public AddCommentRequest(int priceId, string content, int userId, int regionId, IFormFile file)
->>>>>>> 5ee9c1a18702475d86a089b6613594adcf0f4d30
         {
             this.priceId = priceId;
             this.content = content;

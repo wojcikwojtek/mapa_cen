@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "6PDyWNzHLj24/4SdRhRPLsEQMbSyQpsJRc4K63/hhWA=",
+  "Source": "MapaCenBackend",
+  "BasePath": "_content/MapaCenBackend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
