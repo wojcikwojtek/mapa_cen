@@ -17,6 +17,8 @@ namespace MapaCenBackend.Controllers
     [Route("[controller]")]
     public class ProductController
     {
+        static int id_receipt = 0;
+
         [HttpGet("search/{product}")]
         public ProductSearchResponse search([FromRoute] string product)
         {
@@ -101,7 +103,8 @@ namespace MapaCenBackend.Controllers
 
             try
             {
-                string path = Path.Combine(@"C:\MyImages", "nowyImage2.jpg");
+                id_receipt++;
+                string path = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "/images/" + id_receipt.ToString());
                 using (Stream stream = new FileStream(path, FileMode.Create))
                 {
                     addCommentRequest.file.CopyTo(stream);
