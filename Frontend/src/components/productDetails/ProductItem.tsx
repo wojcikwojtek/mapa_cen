@@ -98,12 +98,10 @@ const ProductItem = ({priceInfo,regionId,updateComponent}:Props) => {
        <div className='flexCenter' style={{marginRight:'10px'}}>
         <div style={{cursor:'pointer'}} onClick={handleLikeOpinionClick}><BiLike size={20}  color="green"/></div>
         {positiveOpinions}
-        {/* {positiveOpinionIsGiven ? (priceInfo.upvotes) :priceInfo.upvotes} */}
         </div>
         <div className='flexCenter' style={{marginRight:'10px'}}>
         <div style={{cursor:'pointer'}} onClick={handleDislikeOpinionClick}><BiDislike size={20}  color="red"/></div>
         {negativeOpinions}
-        {/* {negativeOpinionIsGiven ? (priceInfo.downvotes) :priceInfo.downvotes} */}
         </div>
       </p>
       <p>
@@ -124,7 +122,12 @@ const ProductItem = ({priceInfo,regionId,updateComponent}:Props) => {
         style={{ display: 'none' }}
         onChange={handleAddPhoto}
       />
+      <div style={{width:'100%',display:'flex'}}>
       <button onClick={handleCustomButtonClick}>Załącz zdjęcie</button>
+      {newCommentPhoto &&
+      <p style={{marginLeft:'10px'}}>{newCommentPhoto.name}</p>
+        }
+      </div>
       </>
       }
       {showComments && 
@@ -152,14 +155,6 @@ const ProductItem = ({priceInfo,regionId,updateComponent}:Props) => {
   )
 }
 
-function arrayBufferToBase64(buffer:ArrayBuffer) {
-  let binary = '';
-  const bytes = new Uint8Array(buffer);
-  const len = bytes.byteLength;
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return btoa(binary);
-}
+
 
 export default ProductItem;

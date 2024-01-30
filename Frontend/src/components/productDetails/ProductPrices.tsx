@@ -88,7 +88,7 @@ const ProductPrices = ({productId}:Props) => {
      
     {showAddPriceForm &&
     <div className='shadowWrapper'>
-    <AddPriceForm/>
+    <AddPriceForm closeForm={()=>setShowAddPriceForm(false)}/>
     </div>
     }
 

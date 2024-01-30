@@ -109,7 +109,7 @@ namespace MapaCenBackend.Controllers
                 {
                     isImg = true;
                     id_receipt++;
-                    relativePath = """\images\""" + id_receipt.ToString() + ".jpg";
+                    relativePath = """\Images\""" + id_receipt.ToString() + ".jpg";
                     string path = System.IO.Directory.GetCurrentDirectory() + relativePath;
                     using (Stream stream = new FileStream(path, FileMode.Create))
                     {

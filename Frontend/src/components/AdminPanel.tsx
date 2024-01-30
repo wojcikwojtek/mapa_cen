@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 import APIClient from '../services/api-client';
-import { saveAs } from 'file-saver';
+
 
 const apiClient = new APIClient();
 const AdminPanel = () => {
@@ -30,13 +30,13 @@ const AdminPanel = () => {
 
     const handleSubmit=(e)=>{
       e.preventDefault();
-      if(photo && nameRef.current && category && photoRef.current){
-        apiClient.addNewProduct(name,category);
+      if(nameRef.current && category){
+        apiClient.addNewProduct(name,category,photo);
         console.log("asgdgsa");
-        
-        saveAs(photo,"afsf");
         nameRef.current.value="";
-        photoRef.current.value="";
+      }
+      if(photoRef.current){
+        photoRef.current.value=""
       }
     }
 
@@ -53,6 +53,7 @@ const AdminPanel = () => {
     <div>
     <label htmlFor="category">Kategoria:</label>
     <select id="category"   name="category" required>
+        <option selected={true}>wybierz kategorie</option>
         {categories.map(category=>
         <option key={category.id} value={category.id} onClick={()=>setCategory(category.id)}>
             {category.name}

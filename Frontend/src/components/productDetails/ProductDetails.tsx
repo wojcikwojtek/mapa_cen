@@ -21,7 +21,8 @@ const ProductDetails = () => {
         <FaCrown size={25}  color="gold"/>
         </div>
         </div>
-        <img  src={`../public/images/${data?.picture}`}  alt="empty" style={{margin:'40px auto 10px auto'}} width='200px' height='200px'  />
+        
+        <img   src={`data:image/png;charset=utf-8;base64,${data?.picture}`}  alt="empty" style={{margin:'40px auto 10px auto'}} width='200px' height='200px'  />
         <p style={{marginTop:'20px'}}>średnia cena w ciągu ostatniego miesiąca to {data?.averagePriceFromLastMonth}zł</p>
       </div>
     <div className='mapWrapper'>

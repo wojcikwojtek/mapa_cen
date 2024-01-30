@@ -81,8 +81,6 @@ class APIClient{
       formData.append('content', content);
     
       if (photo) {
-        console.log("leci");
-        console.log(photo);
         formData.append('file', photo);
       }
       else{formData.append('file','')}
@@ -95,8 +93,16 @@ class APIClient{
       return axiosInstance.get<ProductsResponse>("/Product/showMostPopularProducts").then(res=>res.data);
     }
 
-    addNewProduct=(name:string,category:number)=>{
-        return axiosInstance.post("/Admin/addProduct",{product_name:name,category_id:category}).then(res=>res.data);
+    addNewProduct=(name:string,category:number,photo:File|undefined)=>{
+      const formData = new FormData();
+    
+      formData.append('product_name', name);
+      formData.append('category_id',category.toString());
+      if(photo){
+        formData.append('file', photo);
+      }
+      
+        return axiosInstance.post("/Admin/addProduct",formData).then(res=>res.data);
     }
 
 

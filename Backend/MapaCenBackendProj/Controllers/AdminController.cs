@@ -45,7 +45,7 @@ namespace MapaCenBackend.Controllers
                 {
                     cmd.Parameters.AddWithValue("@product_name", addProductRequest.product_name);
                     cmd.Parameters.AddWithValue("@category_id", addProductRequest.category_id);
-                    cmd.Parameters.AddWithValue("@picture", relativePath);
+                    cmd.Parameters.AddWithValue("@picture", addProductRequest.file != null? relativePath:"");
                     cmd.ExecuteNonQuery();
                 }
             } catch (Exception ex)

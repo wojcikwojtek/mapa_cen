@@ -312,8 +312,8 @@ input[type=submit]:hover {
   justify-content: center;
   align-items: center;
   font-size: 30px;
-  height: 300px;
-  width: 350px;
+  height: 320px;
+  width: 370px;
   margin-top: 100px;
   margin-left: 100px;
   margin-right: 100px;
@@ -326,8 +326,8 @@ input[type=submit]:hover {
 
 .mostViewedItem img{
   filter: drop-shadow(30px 10px 4px #00ABE4);
-  width: 350px;
-  height: 200px;
+  width: 310px;
+  height: 170px;
   display: block;
   object-fit: contain;
 }
@@ -389,23 +389,43 @@ margin-left:calc(50% - 75px);
 cursor: pointer;
 }
 
+
 .shadowWrapper{
-  z-index: 5;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
+  z-index: 6;
+  position: absolute;
   top: 0%;
   left: 0%;
+  width: 100vw;
+  height: 100vh;
+  opacity: 1;
   background-color: rgba(40, 40, 40, 0.8);
 }
 .addPriceForm{
-  z-index: 6;
+  z-index: 7;
   width: 700px;
   height: 500px;
   position: absolute;
   top: 50%;
   left: 50%;
+  background-color: white;
   transform: translate(-50%,-50%);
   border: 2px solid black;
   border-radius: 5px;
+}
+
+.closeButton{
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  color: white;
+  font-size: 25px;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
 }

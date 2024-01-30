@@ -41,6 +41,7 @@ namespace MapaCenBackend.Controllers
                     getRatingsDTO(source.getRatings()), 
                     getCommentsDTO(source.getComments())
                     )).ToList();
+               
                 double sumPrice = 0;
                 int i = 0;
                 DateTime currentDate = DateTime.Now;
@@ -72,9 +73,9 @@ namespace MapaCenBackend.Controllers
                 string image64 = "";
                 byte[] imageBytes = { };
                 Bitmap image;
-                if (product.getPicture() == null)
-                {
-                    image = new Bitmap(System.IO.Directory.GetCurrentDirectory() + """\empty.jpg""");
+                if (product.getPicture() == "")
+                {   
+                    image = new Bitmap(System.IO.Directory.GetCurrentDirectory() + """\ProductsImages\"""+ """empty.jpg""");
 
                     
                 }
@@ -82,7 +83,7 @@ namespace MapaCenBackend.Controllers
                 {
                     //if (picture_path != null && picture_path != "")
 
-                    image = new Bitmap(System.IO.Directory.GetCurrentDirectory() + product.getPicture());
+                    image = new Bitmap(System.IO.Directory.GetCurrentDirectory() + """\ProductsImages\""" + product.getPicture());
                 }
 
                 // Zamiana obrazu na ciąg Base64
@@ -104,7 +105,7 @@ namespace MapaCenBackend.Controllers
             using (MemoryStream ms = new MemoryStream())
             {
                 // Zapisz obraz do strumienia w formacie JPEG (możesz dostosować format)
-                image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
 
                 // Zamień strumień na tablicę bajtów
                 byte[] imageBytes = ms.ToArray();

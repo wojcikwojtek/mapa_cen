@@ -1,8 +1,17 @@
 import React from 'react'
 
-const AddPriceForm = () => {
+interface Props{
+  closeForm:()=>void;
+}
+
+const AddPriceForm = ({closeForm}:Props) => {
   return (
-    <div className='addPriceForm'>AddPriceForm</div>
+    <div className='addPriceForm'>
+      AddPriceForm
+      <div className='closeButton' onClick={closeForm}>
+        x
+      </div>
+    </div>
   )
 }
 
