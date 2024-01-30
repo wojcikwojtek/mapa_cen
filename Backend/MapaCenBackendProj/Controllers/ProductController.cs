@@ -104,7 +104,8 @@ namespace MapaCenBackend.Controllers
             try
             {
                 id_receipt++;
-                string path = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "/images/" + id_receipt.ToString());
+                string relativePath = """\images\""" + id_receipt.ToString() + ".jpg";
+                string path = System.IO.Directory.GetCurrentDirectory() + relativePath;
                 using (Stream stream = new FileStream(path, FileMode.Create))
                 {
                     addCommentRequest.file.CopyTo(stream);
@@ -118,14 +119,15 @@ namespace MapaCenBackend.Controllers
                 MySqlConnection conn = new MySqlConnection();
                 conn.ConnectionString = connstring;
                 conn.Open();
-                string sql = "insert into comments(price_id, user_id, date, content) values(@price_id_arg , @user_id_arg , @datetime_arg, @content_arg);";
+                string sql = "insert into comments(price_id, user_id, date, content, picture) values(@price_id_arg , @user_id_arg , @datetime_arg, @content_arg, @picture_arg);";
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                 {
-                    //cmd.Parameters.AddWithValue("@price_id_arg", addCommentRequest.priceId);
-                    //cmd.Parameters.AddWithValue("@user_id_arg", addCommentRequest.userId);
-                    //cmd.Parameters.AddWithValue("@datetime_arg", curretnDateTime);
-                    //cmd.Parameters.AddWithValue("@content_arg", addCommentRequest.content);
-                    //cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@price_id_arg", addCommentRequest.priceId);
+                    cmd.Parameters.AddWithValue("@user_id_arg", addCommentRequest.userId);
+                    cmd.Parameters.AddWithValue("@datetime_arg", curretnDateTime);
+                    cmd.Parameters.AddWithValue("@content_arg", addCommentRequest.content);
+                    cmd.Parameters.AddWithValue("@picture_arg", relativePath);
+                    cmd.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
