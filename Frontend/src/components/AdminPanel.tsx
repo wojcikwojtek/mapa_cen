@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 import APIClient from '../services/api-client';
+import { saveAs } from 'file-saver';
 
 const apiClient = new APIClient();
 const AdminPanel = () => {
@@ -29,10 +30,13 @@ const AdminPanel = () => {
 
     const handleSubmit=(e)=>{
       e.preventDefault();
-      if(!photo && nameRef.current && category && photoRef.current){
-        apiClient.addNewProduct(name,category,photo);
+      if(photo && nameRef.current && category && photoRef.current){
+        apiClient.addNewProduct(name,category);
+        console.log("asgdgsa");
+        
+        saveAs(photo,"afsf");
         nameRef.current.value="";
-        photoRef.current.value=undefined;
+        photoRef.current.value="";
       }
     }
 

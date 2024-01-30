@@ -85,10 +85,8 @@ class APIClient{
         console.log(photo);
         formData.append('file', photo);
       }
-      else
-      {
-        formData.append('file', '');
-      }
+      else{formData.append('file','')}
+
         return axiosInstance.post('/Product/addComment', formData
         ).then((res) => console.log(res));
     };
@@ -97,10 +95,8 @@ class APIClient{
       return axiosInstance.get<ProductsResponse>("/Product/showMostPopularProducts").then(res=>res.data);
     }
 
-    addNewProduct=(name:string,category:number,photo?:File)=>{
-      if(!photo){
-        return axiosInstance.post("/Admin/addProduct",{product_name:name,category_id:category,picture:""}).then(res=>res.data);
-      }
+    addNewProduct=(name:string,category:number)=>{
+        return axiosInstance.post("/Admin/addProduct",{product_name:name,category_id:category}).then(res=>res.data);
     }
 
 
