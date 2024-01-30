@@ -8,6 +8,8 @@
   font-family: 'Poppins', sans-serif;
 }
 
+
+
 .flexCenter{
   display: flex;
   align-items: center;
@@ -149,6 +151,24 @@ main h2{
   flex-direction: column;
 }
 
+.addNewPrice{
+  width: 320px;
+  height: 60px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  border:2px solid black;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.pricesWrapper{
+  display:flex; 
+  flex-direction: column;
+   height: 100%;
+  width: 400px;
+}
 
 .productPrices{
   width: 400px;
@@ -173,6 +193,9 @@ main h2{
   padding: 0 5px;
   margin: 0 auto;
 }
+
+
+
 
 .listItem{
   border: 1px solid black;
@@ -364,4 +387,25 @@ width: 150px;
 height: 40px;
 margin-left:calc(50% - 75px);
 cursor: pointer;
+}
+
+.shadowWrapper{
+  z-index: 5;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  background-color: rgba(40, 40, 40, 0.8);
+}
+.addPriceForm{
+  z-index: 6;
+  width: 700px;
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  border: 2px solid black;
+  border-radius: 5px;
 }
