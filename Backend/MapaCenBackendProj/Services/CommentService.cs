@@ -33,24 +33,18 @@ namespace MapaCenBackend.Services
                         : commentReader.GetString("picture");
                         byte[] imageBytes = { };
                         //if (picture_path != null && picture_path != "")
-                        if (true)
-                        {
+                        
+                        Bitmap image = new Bitmap(System.IO.Directory.GetCurrentDirectory() + picture_path);
 
+                        // Zamiana obrazu na ciąg Base64
+                        image64 = ImageToBase64(image);
 
-                            Bitmap image = new Bitmap(@"C:\MyImages\nowyImage2.jpg");
+                        // Wyświetlenie ciągu Base64
+                        Console.WriteLine(image64);
 
-                            // Zamiana obrazu na ciąg Base64
-                            image64 = ImageToBase64(image);
-
-                            // Wyświetlenie ciągu Base64
-                            Console.WriteLine(image64);
-
-
-
-
-                           // string path = Directory.GetCurrentDirectory() + picture_path;
-                            //imageBytes = System.IO.File.ReadAllBytes(path);
-                        }
+                        // string path = Directory.GetCurrentDirectory() + picture_path;
+                        //imageBytes = System.IO.File.ReadAllBytes(path);
+                        
                         Comment comment = new Comment(comment_id, price_id, user_id, date, content,image64);
                         comments.Add(comment);
                     }

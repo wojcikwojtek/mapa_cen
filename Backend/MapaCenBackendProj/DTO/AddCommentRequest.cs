@@ -9,10 +9,13 @@
 
         public int regionId { get; set; }
 
-        
         public IFormFile file { get; set; }
 
-        public AddCommentRequest() { }
+        public AddCommentRequest()
+        {
+
+        }
+
         public AddCommentRequest(int priceId, string content, int userId, int regionId, IFormFile file)
         {
             this.priceId = priceId;
