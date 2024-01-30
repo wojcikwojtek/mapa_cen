@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Utilities;
 using System.Diagnostics;
+using System.Drawing;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-
+using System.Drawing;
 
 namespace MapaCenBackend.Controllers
 {
@@ -68,11 +69,50 @@ namespace MapaCenBackend.Controllers
                 {
                     average = 0;
                 }
-                return new ProductDetailResponse(product.getProductName(), product.getPicture(), average);
+                string image64 = "";
+                byte[] imageBytes = { };
+                Bitmap image;
+                if (product.getPicture() == null)
+                {
+                    image = new Bitmap(System.IO.Directory.GetCurrentDirectory() + """\empty.jpg""");
+
+                    
+                }
+                else
+                {
+                    //if (picture_path != null && picture_path != "")
+
+                    image = new Bitmap(System.IO.Directory.GetCurrentDirectory() + product.getPicture());
+                }
+
+                // Zamiana obrazu na ciąg Base64
+                image64 = ImageToBase64(image);
+
+                // Wyświetlenie ciągu Base64
+                Console.WriteLine(image64);
+
+                return new ProductDetailResponse(product.getProductName(), image64, average);
             }
             catch (Exception ex)
             {
                 return new ProductDetailResponse();
+            }
+        }
+
+        static string ImageToBase64(Bitmap image)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                // Zapisz obraz do strumienia w formacie JPEG (możesz dostosować format)
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                // Zamień strumień na tablicę bajtów
+                byte[] imageBytes = ms.ToArray();
+
+                // Zamień tablicę bajtów na ciąg Base64
+                string base64String = Convert.ToBase64String(imageBytes);
+
+                return base64String;
             }
         }
 

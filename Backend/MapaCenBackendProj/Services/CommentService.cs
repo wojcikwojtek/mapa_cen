@@ -31,21 +31,27 @@ namespace MapaCenBackend.Services
                         string picture_path = commentReader.IsDBNull(commentReader.GetOrdinal("picture"))
                         ? null
                         : commentReader.GetString("picture");
-                        byte[] imageBytes = { };
-                        //if (picture_path != null && picture_path != "")
+                        bool isPicture = false;
+                        if(picture_path!=null)
+                        {
+                            isPicture = true;
+                            byte[] imageBytes = { };
+                            //if (picture_path != null && picture_path != "")
+
+                            Bitmap image = new Bitmap(System.IO.Directory.GetCurrentDirectory() + picture_path);
+
+                            // Zamiana obrazu na ciąg Base64
+                            image64 = ImageToBase64(image);
+
+                            // Wyświetlenie ciągu Base64
+                            Console.WriteLine(image64);
+                        }
                         
-                        Bitmap image = new Bitmap(System.IO.Directory.GetCurrentDirectory() + picture_path);
-
-                        // Zamiana obrazu na ciąg Base64
-                        image64 = ImageToBase64(image);
-
-                        // Wyświetlenie ciągu Base64
-                        Console.WriteLine(image64);
 
                         // string path = Directory.GetCurrentDirectory() + picture_path;
                         //imageBytes = System.IO.File.ReadAllBytes(path);
                         
-                        Comment comment = new Comment(comment_id, price_id, user_id, date, content,image64);
+                        Comment comment = isPicture ? new Comment(comment_id, price_id, user_id, date, content,image64) : new Comment(comment_id, price_id, user_id, date, content, null);
                         comments.Add(comment);
                     }
                 }

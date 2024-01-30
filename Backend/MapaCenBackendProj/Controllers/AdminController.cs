@@ -21,10 +21,21 @@ namespace MapaCenBackend.Controllers
     public class AdminController
     {
         [HttpPost("addProduct")]
-        public void addProduct([FromBody]AddProductRequest addProductRequest)
+        public void addProduct([FromForm]AddProductRequest addProductRequest)
         {
             try
             {
+                string relativePath = addProductRequest.product_name + ".jpg";
+                if (addProductRequest.file != null)
+                {
+                    string path = System.IO.Directory.GetCurrentDirectory() + """\ProductsImages\""" +  relativePath;
+                    using (Stream stream = new FileStream(path, FileMode.Create))
+                    {
+                        addProductRequest.file.CopyTo(stream);
+                    }
+                }
+                
+                
                 string connstring = "server=localhost;uid=root;pwd=Mapacen123;database=mapa_cen";
                 MySqlConnection conn = new MySqlConnection();
                 conn.ConnectionString = connstring;
@@ -34,7 +45,7 @@ namespace MapaCenBackend.Controllers
                 {
                     cmd.Parameters.AddWithValue("@product_name", addProductRequest.product_name);
                     cmd.Parameters.AddWithValue("@category_id", addProductRequest.category_id);
-                    cmd.Parameters.AddWithValue("@picture", addProductRequest.picture);
+                    cmd.Parameters.AddWithValue("@picture", relativePath);
                     cmd.ExecuteNonQuery();
                 }
             } catch (Exception ex)

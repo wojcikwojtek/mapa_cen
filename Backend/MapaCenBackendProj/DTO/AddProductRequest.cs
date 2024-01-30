@@ -6,13 +6,20 @@ namespace MapaCenBackend.DTO
     {
         public string product_name {  get; set; }
         public int category_id { get; set; }
-        public string picture { get; set; }
 
-        public AddProductRequest(string product_name, int category_id, string picture)
+        public IFormFile? file { get; set; }
+
+        public AddProductRequest()
+        {
+
+        }
+
+        public AddProductRequest(string product_name, int category_id, string picture, IFormFile? file)
         {
             this.product_name = product_name;
             this.category_id = category_id;
-            this.picture = picture;
+            this.file = file;
+            
         }
     }
 }

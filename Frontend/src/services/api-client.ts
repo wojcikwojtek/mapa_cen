@@ -70,15 +70,7 @@ class APIClient{
       return axiosInstance.put("/Region/region/"+provinceId+"/user/"+userId).then(res=>res.data);
     }
 
-    // addComment=(priceId: number,userId:number,content:string,photo?:File)=>{
-    //   const formData = new FormData();
-    //   if(photo){
-    //     formData.append('file',photo);
-    //     return axiosInstance.post("/Product/addComment",{priceId:priceId,userId:userId,content:content,photo:formData}).then(res=>res.data);
-    //   }else{
-    //     return axiosInstance.post("/Product/addComment",{priceId:priceId,userId:userId,content:content}).then(res=>res.data);
-    //   }
-    // }
+
 
     addComment = (regionId:number,priceId: number, userId: number, content: string, photo?: File) => {
       const formData = new FormData();
@@ -93,7 +85,10 @@ class APIClient{
         console.log(photo);
         formData.append('file', photo);
       }
-
+      else
+      {
+        formData.append('file', '');
+      }
         return axiosInstance.post('/Product/addComment', formData
         ).then((res) => console.log(res));
     };
