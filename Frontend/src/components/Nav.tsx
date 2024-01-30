@@ -20,11 +20,13 @@ const Nav = () => {
       const username =localStorage.getItem("username");
       const userId =localStorage.getItem("userId");
       const province =localStorage.getItem("province");
+      const hasAdmin =!!localStorage.getItem("hasAdmin");
       
-      if(username!=null && userId != null &&province != null){
+      if(username!=null && userId != null &&province != null && hasAdmin != null){
         userStore.setUsername(username);
         userStore.setUserId(parseInt(userId));
         userStore.setUserRegion(parseInt(province));
+        userStore.setHasAdmin(hasAdmin);
       }
     }
 
@@ -39,6 +41,7 @@ const Nav = () => {
     localStorage.removeItem("username");
     localStorage.removeItem("userId");
     localStorage.removeItem("province");
+    localStorage.removeItem("hasAdmin");
     setShowPopUp('0');
     userStore.reset();
   }
@@ -65,8 +68,8 @@ const Nav = () => {
 <nav>
   <>
     <h1 style={{cursor:'pointer'}} onClick={handleBackToMainPage}>Mapa Cen</h1>
-    <input type="text" value={searchValue} onChange={()=>setSearchValue(searchInputRef.current?.value||'')} className="searchField" placeholder="Enter your search term" ref={searchInputRef}
-     onKeyDown={handleSearch}/>
+    <input type="text" className="searchField" value={searchValue} onKeyDown={handleSearch}
+    onChange={()=>setSearchValue(searchInputRef.current?.value||'')}  placeholder="Enter your search term" ref={searchInputRef} />
       <div className='userPanel' onKeyDown={()=>setShowPopUp(showPopUp==='1'?'0':'1')}>
     <div className='userIcon'onClick={()=>setShowPopUp(showPopUp==='1'?'0':'1')}>
       <FaRegUser size={40} color="black" />
@@ -78,7 +81,13 @@ const Nav = () => {
  
   
   {userStore.username!='gość' ?
-  <div className='userPopUp'  style={{scale:showPopUp,zIndex:'4'}}>
+  <>
+  <div className='userPopUp' style={userStore.hasAdmin?{scale:showPopUp,zIndex:'4',top:'-30px'}
+  :{scale:showPopUp,zIndex:'4'}}>
+  {userStore.hasAdmin &&
+  <Link to={'/adminPanel'} style={{textDecoration:'none'}}><div> 
+  admin panel
+  </div></Link>}
   <div onClick={()=>{setShowPopUp('0');setShowChangeProvincePopUp(true)}}>
   ustaw województwo
   </div>
@@ -86,6 +95,7 @@ const Nav = () => {
   wyloguj
   </div> 
   </div>
+  </>
   :
   <div className='userPopUp'  style={{opacity:showPopUp,zIndex:'4',marginTop:'30px'}}>
   <Link to={'/auth/login'} style={{textDecoration: 'none'}}>

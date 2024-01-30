@@ -80,30 +80,32 @@ class APIClient{
     //   }
     // }
 
-    addComment = (priceId: number, userId: number, content: string, photo?: File) => {
+    addComment = (regionId:number,priceId: number, userId: number, content: string, photo?: File) => {
       const formData = new FormData();
     
+      formData.append('regionId', regionId.toString());
       formData.append('priceId', priceId.toString());
       formData.append('userId', userId.toString());
       formData.append('content', content);
     
       if (photo) {
+        console.log("leci");
+        console.log(photo);
         formData.append('file', photo);
-    
-        return axiosInstance.post('/Product/addComment', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-          .then((res) => res.data);
-      } else {
-        return axiosInstance.post('/Product/addComment', formData)
-          .then((res) => res.data);
       }
+
+        return axiosInstance.post('/Product/addComment', formData
+        ).then((res) => console.log(res));
     };
 
     getMostPopular=()=>{
       return axiosInstance.get<ProductsResponse>("/Product/showMostPopularProducts").then(res=>res.data);
+    }
+
+    addNewProduct=(name:string,category:number,photo?:File)=>{
+      if(!photo){
+        return axiosInstance.post("/Admin/addProduct",{product_name:name,category_id:category,picture:""}).then(res=>res.data);
+      }
     }
 
 

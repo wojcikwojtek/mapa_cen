@@ -60,7 +60,7 @@ CREATE TABLE `comments` (
   KEY `user_id1_idx` (`user_id`),
   CONSTRAINT `price_id1` FOREIGN KEY (`price_id`) REFERENCES `prices` (`price_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_id1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +69,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (1,1,1,'2023-01-01 12:00:00','dupa','dupa.jpg');
+INSERT INTO `comments` VALUES (1,1,1,'2023-01-01 12:00:00','dupa','\\Images\\pomidor.png'),(2,2,3,'2024-01-16 12:19:41','Kamil paruwa',NULL);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +121,7 @@ CREATE TABLE `products` (
   UNIQUE KEY `product_name_UNIQUE` (`product_name`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +130,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'pomidor',1,'pomidor.jpg'),(2,'banan',2,'banan.jpg'),(4,'jagody',2,'jagody.jpg'),(5,'sałata',1,'sałata.jpg'),(6,'cebula',1,'cebula.jpg'),(7,'pszenny chleb',3,'pszennyChleb.jpg'),(8,'żytni chleb',3,'żytniChleb.jpg'),(9,'kajzerka',3,'kajzerka.jpg'),(10,'łosoś',4,'łosoś.jpg'),(11,'krewetki',4,'krewetki.jpg'),(12,'homar',4,'homar.jpg'),(13,'snickers',5,'snickers.jpg'),(14,'prince polo',5,'princePolo.jpg'),(15,'michałki',5,'michałki.jpg'),(16,'twaróg',6,'twaróg.jpg'),(17,'mleko',6,'mleko.jpg'),(18,'ser gouda',6,'serGouda.jpg'),(19,'pierś z kurczaka',7,'pierśZKurczaka.jpg'),(20,'udka z kurczaka',7,'udkaZKurczaka.jpg'),(21,'polędwica wołowa',7,'polędwicaWołowa.jpg'),(22,'sucha krakowska',7,'suchaKrakowska.jpg'),(23,'coca cola',8,'cocaCola.jpg'),(24,'woda niegazowana',8,'wodaNiegazowana.jpg');
+INSERT INTO `products` VALUES (1,'pomidor',1,'pomidor.png'),(2,'banan',2,'banan.png'),(4,'jagody',2,'jagody.png'),(5,'sałata',1,'sałata.png'),(6,'cebula',1,'cebula.png'),(7,'pszenny chleb',3,'chleb_pszenny.png'),(8,'żytni chleb',3,'chleb_żytni.png'),(9,'kajzerka',3,'kajzerka.png'),(10,'łosoś',4,'łosoś.png'),(11,'krewetki',4,'krewetki.png'),(12,'homar',4,'homar.png'),(13,'snickers',5,'snickers.png'),(14,'prince polo',5,'prince_polo.png'),(15,'michałki',5,'michałki.png'),(16,'twaróg',6,'twaróg.png'),(17,'mleko',6,'mleko.png'),(18,'ser gouda',6,'ser_gouda.png'),(19,'pierś z kurczaka',7,'pierś_z_kurczaka.png'),(20,'udka z kurczaka',7,'udka_z_kurczaka.png'),(21,'polędwica wołowa',7,'polędwica_wołowa.png'),(22,'sucha krakowska',7,'sucha_krakowska.png'),(23,'coca cola',8,'coca_cola.png'),(24,'woda niegazowana',8,'woda_niegazowana.png'),(25,'woda gazowana',8,'woda_gazowana.png'),(26,'fasola',1,'bean-dies-from-cringe.png');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,7 +151,7 @@ CREATE TABLE `ratings` (
   KEY `user_id_idx` (`user_id`),
   CONSTRAINT `price_id` FOREIGN KEY (`price_id`) REFERENCES `prices` (`price_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +160,7 @@ CREATE TABLE `ratings` (
 
 LOCK TABLES `ratings` WRITE;
 /*!40000 ALTER TABLE `ratings` DISABLE KEYS */;
-INSERT INTO `ratings` VALUES (1,1,1,1);
+INSERT INTO `ratings` VALUES (1,1,1,1),(2,7,3,1),(3,2,3,1);
 /*!40000 ALTER TABLE `ratings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +217,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','admin@gmail.com','dupa',1,0),(2,'sdiahj','sdafsa','dsadasd',0,34),(3,'string','string','string',0,33),(4,'dddd','dddd@gmail.com','Mapacen123',0,32);
+INSERT INTO `users` VALUES (1,'admin','admin@gmail.com','dupa',1,0),(2,'sdiahj','sdafsa','dsadasd',0,34),(3,'string','string','string',0,12),(4,'dddd','dddd@gmail.com','Mapacen123',0,32);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-09 15:22:42
+-- Dump completed on 2024-01-23 15:12:32

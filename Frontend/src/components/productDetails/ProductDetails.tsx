@@ -71,11 +71,11 @@ const ProductDetails = () => {
       {productPrices.data?.length !=0 ?
       <>
       {productPrices.data?.map(price=>
-      <ProductItem key={price.priceId} priceInfo={price} updateComponent={()=>{productPrices.refetch();}}/>
+       <ProductItem key={price.priceId} regionId={selectedPowiat} priceInfo={price} updateComponent={()=>{productPrices.refetch();}}/>
       )}
       </>
       :
-      <h4 style={{marginTop:'20px'}}>Ten Produkt nie ma aktualnie rzadnych wpisów w tym Powiecie</h4>
+      <h4 style={{marginTop:'20px'}}>Ten Produkt nie ma aktualnie żadnych wpisów w tym Powiecie</h4>
       }
       </div>
       :

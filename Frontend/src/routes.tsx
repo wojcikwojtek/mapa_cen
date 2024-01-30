@@ -5,15 +5,16 @@ import AuthPage from "./pages/AuthPage";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import ProductDetails from "./components/productDetails/ProductDetails";
+import AdminPanel from "./components/AdminPanel";
 
 
 const router =createBrowserRouter([
     {
     path:'/',
     element:<Layout/>,
-    // errorElement:<ErrorPage/>,
     children:[
      {path:'',element:<Main/>},
+     {path:'/adminPanel',element:<AdminPanel/>},
      {path:'/productDetail/:productId',element:<ProductDetails/>},
         {path:'auth',
         element:<AuthPage/>,

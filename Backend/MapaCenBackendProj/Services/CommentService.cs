@@ -1,5 +1,6 @@
 ﻿using MapaCenBackend.Entities;
 using MySql.Data.MySqlClient;
+using System.Drawing;
 
 namespace MapaCenBackend.Services
 {
@@ -26,21 +27,62 @@ namespace MapaCenBackend.Services
                         int user_id = int.Parse(commentReader.GetString("user_id"));
                         string date = commentReader.GetString("date");
                         string content = commentReader.GetString("content");
+                        string image64 = "";
                         string picture_path = commentReader.IsDBNull(commentReader.GetOrdinal("picture"))
                         ? null
                         : commentReader.GetString("picture");
                         byte[] imageBytes = { };
-                        if (picture_path != null && picture_path != "")
+                        //if (picture_path != null && picture_path != "")
+                        if (true)
                         {
-                            string path = Directory.GetCurrentDirectory() + picture_path;
-                            imageBytes = System.IO.File.ReadAllBytes(path);
+
+
+                            Bitmap image = new Bitmap(@"C:\MyImages\nowyImage2.jpg");
+
+                            // Zamiana obrazu na ciąg Base64
+                            image64 = ImageToBase64(image);
+
+                            // Wyświetlenie ciągu Base64
+                            Console.WriteLine(image64);
+
+
+
+
+                           // string path = Directory.GetCurrentDirectory() + picture_path;
+                            //imageBytes = System.IO.File.ReadAllBytes(path);
                         }
-                        Comment comment = new Comment(comment_id, price_id, user_id, date, content, imageBytes);
+                        Comment comment = new Comment(comment_id, price_id, user_id, date, content,image64);
                         comments.Add(comment);
                     }
                 }
             }
             return comments;
         }
+
+
+
+
+
+        static string ImageToBase64(Bitmap image)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                // Zapisz obraz do strumienia w formacie JPEG (możesz dostosować format)
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                // Zamień strumień na tablicę bajtów
+                byte[] imageBytes = ms.ToArray();
+
+                // Zamień tablicę bajtów na ciąg Base64
+                string base64String = Convert.ToBase64String(imageBytes);
+
+                return base64String;
+            }
+        }
     }
+
 }
+
+
+
+
