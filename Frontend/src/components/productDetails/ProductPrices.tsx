@@ -31,6 +31,14 @@ const ProductPrices = ({productId}:Props) => {
           setSelectedProvince('');
         }
       }
+
+      const handlePoviatChange=(powiatName:string,powiatId:number)=>{
+        setSelectedPowiat(powiatId);
+            userStore.setglobalSelectedPowiat(powiatName);
+      // console.log(userStore.globalSelectedPowiat);
+      }
+
+     
   return (
     <div className='pricesWrapper'>
     <div className='productPrices'>
@@ -60,7 +68,7 @@ const ProductPrices = ({productId}:Props) => {
     :
     <div>
     {powiatData.data?.map(powiat=>
-    <div className='listItem' key={powiat.id} style={{cursor:'pointer'}} onClick={()=>setSelectedPowiat(powiat.id)}>
+    <div className='listItem' key={powiat.id} style={{cursor:'pointer'}} onClick={()=>handlePoviatChange(powiat.name,powiat.id)}>
     {powiat.name}
     </div>
     )}
@@ -74,7 +82,9 @@ const ProductPrices = ({productId}:Props) => {
     <h3>Wybierz województwo</h3>
     {provinceData.data?.map((province,index) => (
         <div className='province' key={index}
-         onClick={()=>{setSelectedProvince(province.name);setPowiaty(province.id);}}>
+         onClick={()=>{
+          setSelectedProvince(province.name);
+          setPowiaty(province.id)}}>
       {province.name}
         </div>
       ))}

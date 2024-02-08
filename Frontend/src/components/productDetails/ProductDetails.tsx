@@ -2,11 +2,16 @@ import { useParams } from 'react-router-dom';
 import useProductDetails from '../../hooks/useProductDetails';
 import { FaCrown } from "react-icons/fa6";
 import ProductPrices from './productPrices';
+import MapaComponent from './MapaComponent';
+import { useState } from 'react';
+import useUserStore from '../../store';
 
 
 const ProductDetails = () => {
     const {productId}=useParams();
     const {data}=useProductDetails(parseInt(productId!));
+    const globalSelectedPowiat=useUserStore(s=>s.globalSelectedPowiat);
+        // const [selectedProvince,setSelectedProvince]=useState('gliwice');
     // const [selectedProvinceIndex,setSelectedProvinceIndex]=useState(0);
   
  
@@ -22,13 +27,15 @@ const ProductDetails = () => {
         </div>
         </div>
         
-        <img   src={`data:image/png;charset=utf-8;base64,${data?.picture}`}  alt="empty" style={{margin:'40px auto 10px auto'}} width='200px' height='200px'  />
+        <img src={`data:image/png;charset=utf-8;base64,${data?.picture}`}  alt="empty" style={{margin:'40px auto 10px auto'}} width='200px' height='200px'  />
         <p style={{marginTop:'20px'}}>średnia cena w ciągu ostatniego miesiąca to {data?.averagePriceFromLastMonth}zł</p>
       </div>
     <div className='mapWrapper'>
       <h2 style={{width:'100%',textAlign:'center'}} >Mapa albo Informacje o konkretnej cenie</h2>
+      <MapaComponent/>
     </div>
-    <ProductPrices productId={productId!}/>
+    
+    <ProductPrices  productId={productId!}/>
     </section>
     </main>
   )
