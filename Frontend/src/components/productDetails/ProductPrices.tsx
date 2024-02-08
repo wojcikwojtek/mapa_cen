@@ -83,7 +83,7 @@ const ProductPrices = ({productId}:Props) => {
     </div>
 
      <button className='addNewPrice' onClick={()=>setShowAddPriceForm(true)}>
-     dodaj nową cene dla tego produktu
+     dodaj nową cenę dla tego produktu
      </button>
      
     {showAddPriceForm &&

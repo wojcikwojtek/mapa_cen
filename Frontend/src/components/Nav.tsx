@@ -67,11 +67,11 @@ const Nav = () => {
   return (
 <nav>
   <>
-    <h1 style={{cursor:'pointer'}} onClick={handleBackToMainPage}>Mapa Cen</h1>
+    <h1 className = "returnToStart" style={{cursor:'pointer'}} onClick={handleBackToMainPage}>Mapa Cen</h1>
     <input type="text" className="searchField" value={searchValue} onKeyDown={handleSearch}
     onChange={()=>setSearchValue(searchInputRef.current?.value||'')}  placeholder="Enter your search term" ref={searchInputRef} />
-      <div className='userPanel' onKeyDown={()=>setShowPopUp(showPopUp==='1'?'0':'1')}>
-    <div className='userIcon'onClick={()=>setShowPopUp(showPopUp==='1'?'0':'1')}>
+      <div className='userPanel' onKeyDown={()=>setShowPopUp(showPopUp==='1'?'0':'1')} onClick={()=>setShowPopUp(showPopUp==='1'?'0':'1')}>
+    <div className='userIcon'>
       <FaRegUser size={40} color="black" />
     </div>
     
