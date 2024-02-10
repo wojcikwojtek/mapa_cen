@@ -56,7 +56,7 @@ const y=parseInt(czescCalkowitaY)+liczbaPoPrzecinkuY;
     };
   }, [selected,nowy]); // [] oznacza, że useEffect zostanie uruchomiony tylko raz po zamontowaniu komponentu
 
-  return <div id="map" style={{ width: '995px', height: '600px' }}></div>;
+  return <div id="map" style={{ width: '800px', height: '600px' }}></div>;
 };
 
 export default MapaComponent
