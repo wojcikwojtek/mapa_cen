@@ -8,7 +8,7 @@ const StartingPage = () => {
 
   return (
     <div className='mostViewedWrapper'> 
-    <h1>Most Popular Products</h1>
+    <h1>Najpopularniejsze Produkty</h1>
     {/* {products.data?.products.map(product=> */}
         {products.data?.products.map(product=>    
         <div className='mostViewedItem'>

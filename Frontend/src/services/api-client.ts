@@ -66,6 +66,14 @@ class APIClient{
       return axiosInstance.get<Price[]>("/ProductDetail/prices/",{params}).then(res=>res.data);
     }
 
+    getPricesForRegionName(productId:number,regionName:string){
+      const params={
+        productId:productId,
+        regionName:regionName,
+      }
+      return axiosInstance.get<Price[]>("/ProductDetail/prices/",{params}).then(res=>res.data);
+    }
+
     updateDefaultProvince=(provinceId:number,userId:number)=>{
       return axiosInstance.put("/Region/region/"+provinceId+"/user/"+userId).then(res=>res.data);
     }

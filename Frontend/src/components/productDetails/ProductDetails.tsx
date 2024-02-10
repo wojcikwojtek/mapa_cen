@@ -4,13 +4,11 @@ import { FaCrown } from "react-icons/fa6";
 import ProductPrices from './productPrices';
 import MapaComponent from './MapaComponent';
 import { useState } from 'react';
-import useUserStore from '../../store';
 
 
 const ProductDetails = () => {
     const {productId}=useParams();
-    const {data}=useProductDetails(parseInt(productId!));
-    const globalSelectedPowiat=useUserStore(s=>s.globalSelectedPowiat);
+    const {data,isLoading}=useProductDetails(parseInt(productId!));
         // const [selectedProvince,setSelectedProvince]=useState('gliwice');
     // const [selectedProvinceIndex,setSelectedProvinceIndex]=useState(0);
   
@@ -32,7 +30,10 @@ const ProductDetails = () => {
       </div>
     <div className='mapWrapper'>
       <h2 style={{width:'100%',textAlign:'center'}} >Mapa albo Informacje o konkretnej cenie</h2>
-      <MapaComponent/>
+      
+      {data &&
+      <MapaComponent productId={productId!}/>
+        }
     </div>
     
     <ProductPrices  productId={productId!}/>
