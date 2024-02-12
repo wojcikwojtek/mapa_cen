@@ -1,15 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import mapOfRegionCors from './RegionCords';
-
 import tt from '@tomtom-international/web-sdk-maps';
 import useUserStore from '../../store';
-import APIClient from '../../services/api-client';
 import axios from 'axios';
-import { Price } from '../../entities/price';
-import useProductDetails from '../../hooks/useProductDetails';
-import { ProductDetails } from '../../entities/productDetails';
 import useProductPrices from '../../hooks/useProductPrices';
-import ProductPrices from './productPrices';
 
 /*
 const handleSearch = async (address:string) => {
@@ -69,15 +63,16 @@ interface Position{
   lat:number;
 }
 
-var temp:Position[] =[];
-
 const MapaComponent = ({productId}:Props) => {
   const [selectedPowiat,setSelectedPowiat]=useState(0);
-  const nowy=useUserStore(s=>s.globalSelectedPowiat);
+  const userStore=useUserStore();
+  const nowy=userStore.globalSelectedRegion;
+  const nowyId=userStore.globalSelectedRegionId;
   const currentCity = mapOfRegionCors.find(city => city.name == nowy);
-  const productPrices =useProductPrices(parseInt(productId!), 33);
+  const productPrices =useProductPrices(parseInt(productId!), nowyId);
   const [selected,setSelected]=useState(currentCity);
   const [mark,setMark]=useState<Position[]>([{lon:21.70,lat:50.67}]);
+  
   // const [mark,setMark]=useState([{lon:21.70,lat:50.67}]);
   
 
@@ -85,6 +80,7 @@ const MapaComponent = ({productId}:Props) => {
 
   useEffect(()=>{
     if(currentCity){
+      const temp:Position[] =[];
       // console.log(currentCity);
       setSelected(currentCity);
       // handleSearch().then(pr=>console.log(pr.position));
@@ -92,17 +88,15 @@ const MapaComponent = ({productId}:Props) => {
       // while(isLoading){
       //   console.log('asgagsga');
       // }
-      console.log(currentCity.name);
       if(productPrices&&!productPrices.isLoading){
-        console.log(productPrices.data);
         productPrices.data?.forEach(price=>{
-          var list = price.shopAddress.split(" ");
-          console.log(list[0]);
+          const list = price.shopAddress.split(" ");
           if(list[0]==currentCity.name) {
+            console.log(price.shopAddress);
             handleSearch(price.shopAddress).then(pr=>temp.push(pr.position)); 
           }
         })
-        //setMark(temp);
+        setMark(temp);
       }
       /*
       if(productPrices&&!productPrices.isLoading){
@@ -114,9 +108,10 @@ const MapaComponent = ({productId}:Props) => {
       */
       
     }
-  },[currentCity,productId,productPrices]);
+  },[currentCity,productId,productPrices,nowyId]);
 
   useEffect(() => {
+    
 // Zamień liczbę na string i rozdziel część przed i po przecinkiem
 const [czescCalkowitaX, czescPoPrzecinkuX] =selected? selected.x.toString().split('.'):'18.44';
 const [czescCalkowitaY, czescPoPrzecinkuY] =selected? selected.y.toString().split('.'):'52.13';
@@ -142,7 +137,9 @@ const y=parseInt(czescCalkowitaY)+liczbaPoPrzecinkuY;
     //markers.map(mark1=>mark1.getElement().className='marker');
     //markers.map(mark1=>mark1.addTo(map));
     // const marker = new tt.Marker().setLngLat([mark.lon,mark.lat]);
-    const markers1 = temp.map(temp=>new tt.Marker().setLngLat([temp.lon,temp.lat]));
+    console.log("markery:"+mark);
+    const markers1 = mark.map(temp=>new tt.Marker().setLngLat([temp.lon,temp.lat]));
+    
     markers1.map(temp1=>temp1.getElement().className='marker');
     markers1.map(temp1=>temp1.addTo(map));
 
@@ -158,7 +155,7 @@ const y=parseInt(czescCalkowitaY)+liczbaPoPrzecinkuY;
     return () => {
       map.remove(); // Opuść mapę, gdy komponent zostanie odmontowany
     };
-  }, [selected,nowy,temp]); // [] oznacza, że useEffect zostanie uruchomiony tylko raz po zamontowaniu komponentu
+  }, [selected,mark]); // [] oznacza, że useEffect zostanie uruchomiony tylko raz po zamontowaniu komponentu
 
   return <div id="map" style={{position:'relative',width: '100%', height: '600px' }}></div>;
 };

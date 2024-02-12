@@ -7,8 +7,10 @@ interface UserStore{
   userId:number;
   userRegion:number;
   hasAdmin:boolean;
-  globalSelectedPowiat:string;
-  setglobalSelectedPowiat:(powiat:string)=>void;
+  globalSelectedRegion:string;
+  globalSelectedRegionId:number;
+  setglobalSelectedRegion:(region:string)=>void;
+  setglobalSelectedRegionId:(regionId:number)=>void;
   setUsername:(username:string)=>void;
   setUserId:(userId:number)=>void;
   setUserRegion:(userRegion:number)=>void;
@@ -23,9 +25,11 @@ const useUserStore=create<UserStore>(set=>({
     searchProduct:undefined,
     userRegion:0,
     hasAdmin:false,
-    globalSelectedPowiat:"gliwice",
+    globalSelectedRegion:"gliwice",
+    globalSelectedRegionId:33,
     setUsername:(username)=>set(()=>({username: username})),
-    setglobalSelectedPowiat:(powiat)=>set(()=>({globalSelectedPowiat: powiat})),
+    setglobalSelectedRegion:(region)=>set(()=>({globalSelectedRegion: region})),
+    setglobalSelectedRegionId:(regionId)=>set(()=>({globalSelectedRegionId: regionId})),
     setUserId:(userId)=>set(()=>({userId: userId})),
     setUserRegion:(userRegion)=>set(()=>({userRegion: userRegion})),
     setHasAdmin:(hasAdmin)=>set(()=>({hasAdmin: hasAdmin})),

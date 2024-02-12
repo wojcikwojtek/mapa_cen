@@ -54,7 +54,7 @@ class APIClient{
       return axiosInstance.get<RegionResponse[]>("/Region/region").then(res=>res.data);
     }
 
-    getPowiat=(provinceId:number)=>{
+    getRegion=(provinceId:number)=>{
       return axiosInstance.get<RegionResponse[]>("/Region/region/"+provinceId).then(res=>res.data);
     }
 
@@ -79,6 +79,10 @@ class APIClient{
     }
 
 
+    addNewPrice=(productId:number,regionId:number,address:string,price:number)=>{
+      return axiosInstance.post("/Product/addPrice",{
+        productId:productId,regionId:regionId,shopAddress:address,priceValue:price}).then(res=>res);
+    }
 
     addComment = (regionId:number,priceId: number, userId: number, content: string, photo?: File) => {
       const formData = new FormData();
