@@ -29,6 +29,7 @@ namespace MapaCenBackend.Services
                     string picture = reader.GetString("picture");
                     List<Price> prices = priceService.selectPrices(productId);
                     Product product = new Product(product_id, product_name, category_id, picture, prices);
+                    conn.Close();
                     return product;
                 }
             }

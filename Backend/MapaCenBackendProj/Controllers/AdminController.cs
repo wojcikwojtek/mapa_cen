@@ -48,6 +48,7 @@ namespace MapaCenBackend.Controllers
                     cmd.Parameters.AddWithValue("@picture", addProductRequest.file != null? relativePath:"");
                     cmd.ExecuteNonQuery();
                 }
+                conn.Close();
             } catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -71,6 +72,7 @@ namespace MapaCenBackend.Controllers
                     cmd.Parameters.AddWithValue("@product_id", editProductRequest.id);
                     cmd.ExecuteNonQuery();
                 }
+                conn.Close();
             }
             catch (Exception ex)
             {
@@ -92,6 +94,7 @@ namespace MapaCenBackend.Controllers
                     cmd.Parameters.AddWithValue("@product_id", product_id);
                     cmd.ExecuteNonQuery();
                 }
+                conn.Close();
             }
             catch (Exception ex)
             {

@@ -54,9 +54,10 @@ namespace MapaCenBackend.Controllers
                 }
                 foreach(PriceDTO pr in pricesDTOs)
                 {
+                    int day = int.Parse(pr.date.Substring(0, 2));
                     int month = int.Parse(pr.date.Substring(3, 2));
                     int year = int.Parse(pr.date.Substring(6, 4));
-                    if(month == lastMonth && year == lastYear)
+                    if((day >= currentDate.Day && month == lastMonth && year == lastYear) || ((day <= currentDate.Day && (month > lastMonth || (month == 1 && lastMonth == 12)) && year >= lastYear)))
                     {
                         sumPrice += pr.priceValue;
                         i++;
