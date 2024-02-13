@@ -30,6 +30,7 @@ namespace MapaCenBackend.Services
                     }
                 }
             }
+            conn.Close();
             return ratings;
         }
     }

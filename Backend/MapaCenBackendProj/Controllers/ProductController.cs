@@ -59,6 +59,7 @@ namespace MapaCenBackend.Controllers
                     }
                     
                 }
+                conn.Close();
                 return new ProductSearchResponse(products);
             }
             catch (Exception ex)
@@ -88,6 +89,7 @@ namespace MapaCenBackend.Controllers
                     cmd.Parameters.AddWithValue("@region_id_arg", addPriceRequest.regionId );
                     cmd.ExecuteNonQuery();
                 }
+                conn.Close();
             }
             catch (Exception ex)
             {
@@ -139,6 +141,7 @@ namespace MapaCenBackend.Controllers
                     }
                     cmd.ExecuteNonQuery();
                 }
+                conn.Close();
             }
             catch (Exception ex)
             {
@@ -183,6 +186,8 @@ namespace MapaCenBackend.Controllers
                                     cmd2.Parameters.AddWithValue("@is_positive_arg", updateRatingRequest.positive);
                                     cmd2.ExecuteNonQuery();
                                 }
+                                conn.Close();
+                                conn2.Close();
                                 return true;
                             }
                             else
@@ -194,6 +199,8 @@ namespace MapaCenBackend.Controllers
                                     cmd2.Parameters.AddWithValue("@user_id_arg", updateRatingRequest.userId);
                                     cmd2.ExecuteNonQuery();
                                 }
+                                conn.Close();
+                                conn2.Close();
                                 return false;
                             }
                         }
@@ -211,6 +218,8 @@ namespace MapaCenBackend.Controllers
                                 cmd2.Parameters.AddWithValue("@is_positive_arg", updateRatingRequest.positive);
                                 cmd2.ExecuteNonQuery();
                             }
+                            conn.Close();
+                            conn2.Close();
                             return true;
                         }
                     }
@@ -236,7 +245,7 @@ namespace MapaCenBackend.Controllers
                 conn.ConnectionString = connstring;
                 conn.Open();
 
-                string sql = "select products.product_id, products.product_name from products join prices on products.product_id = prices.product_id group by products.product_id order by count(prices.price_id) limit 10";
+                string sql = "select products.product_id, products.product_name from products join prices on products.product_id = prices.product_id group by products.product_id order by count(prices.price_id) desc limit 10";
                 List<ProductSearch> products = new List<ProductSearch>();
                 using (MySqlCommand cmd = new MySqlCommand(sql, conn))
                 {
@@ -256,6 +265,7 @@ namespace MapaCenBackend.Controllers
                     }
 
                 }
+                conn.Close();
                 return new ProductSearchResponse(products);
             }
             catch (Exception ex)

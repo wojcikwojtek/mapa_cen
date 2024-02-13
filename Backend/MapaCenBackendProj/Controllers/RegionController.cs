@@ -43,6 +43,7 @@ namespace MapaCenBackend.Controllers
                 }
 
             }
+            conn.Close();
             return voivodeships;
         }
 
@@ -72,6 +73,7 @@ namespace MapaCenBackend.Controllers
                 }
 
             }
+            conn.Close();
             return regions;
         }
 
@@ -91,6 +93,7 @@ namespace MapaCenBackend.Controllers
                     cmd.Parameters.AddWithValue("@userId", userId);
                     cmd.ExecuteNonQuery();
                 }
+                conn.Close();
             } catch(Exception ex) 
             {
                 System.Console.WriteLine(ex.Message);

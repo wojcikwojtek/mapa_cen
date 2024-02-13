@@ -55,7 +55,7 @@ const ProductPrices = ({productId,blockMapRefetching}:Props) => {
        `powiat ${regionData.data?.find(powiat=>powiat.id==selectedRegion)?.name}`:''}
        </span>
       <button onClick={handleBack}>
-        powrót
+        Powrót
       </button>
     </div>
 
@@ -68,7 +68,7 @@ const ProductPrices = ({productId,blockMapRefetching}:Props) => {
     )}
     </>
     :
-    <h4 style={{marginTop:'20px'}}>Ten Produkt nie ma aktualnie żadnych wpisów w tym Powiecie</h4>
+    <h4 style={{marginTop:'20px'}}>Ten produkt nie ma aktualnie żadnych wpisów w tym powiecie</h4>
     }
     </div>
     :
@@ -100,7 +100,7 @@ const ProductPrices = ({productId,blockMapRefetching}:Props) => {
 
     {selectedRegion !=0 &&
      <button className='addNewPrice' onClick={()=>setShowAddPriceForm(true)}>
-     dodaj nową cenę dla tego produktu
+     Dodaj nową cenę dla tego produktu
      </button>
     }
      

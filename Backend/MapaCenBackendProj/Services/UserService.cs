@@ -20,6 +20,7 @@ namespace MapaCenBackend.Services
                 {
                     reader.Read();
                     string username = reader.GetString("username");
+                    conn.Close();
                     return username;
                 }
             }
