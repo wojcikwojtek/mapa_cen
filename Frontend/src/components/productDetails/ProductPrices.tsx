@@ -9,10 +9,10 @@ import AddPriceForm from './AddPriceForm';
 
 interface Props{
     productId:string;
-    // updateComponent:()=>void;
+     blockMapRefetching:()=>void;
 }
 
-const ProductPrices = ({productId}:Props) => {
+const ProductPrices = ({productId,blockMapRefetching}:Props) => {
     const [selectedRegion,setSelectedRegion]=useState(0);
     const [showAddPriceForm,setShowAddPriceForm]=useState(false);
     const [reload,setReload]=useState(false);
@@ -42,12 +42,8 @@ const ProductPrices = ({productId}:Props) => {
         setSelectedRegion(regionId);
             userStore.setglobalSelectedRegion(regionName);
             userStore.setglobalSelectedRegionId(regionId);
-            // updateComponent();
       }
 
-    // if(productPrices.isRefetching){
-      // return (<div>refetch</div>);
-    // } 
 
   return (
     <div className='pricesWrapper'>
@@ -68,7 +64,7 @@ const ProductPrices = ({productId}:Props) => {
     {(productPrices.data?.length !=0)&&!productPrices.isRefetching ?
     <>
     {productPrices.data?.map(price=>
-     <ProductItem key={price.priceId} regionId={selectedRegion} priceInfo={price} updateComponent={()=>{ProductPrices.refetch();}}/>
+     <ProductItem key={price.priceId} regionId={selectedRegion} priceInfo={price} updateComponent={()=>{productPrices.refetch();blockMapRefetching();}}/>
     )}
     </>
     :

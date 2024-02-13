@@ -483,9 +483,10 @@ cursor: pointer;
   left: 0%;
 }
 
+
+
 .marker-label{
   width: 150px;
-  height: 50px;
   background-color: whitesmoke;
   display: flex;
   justify-content: center;
@@ -494,6 +495,20 @@ cursor: pointer;
   border: 1px solid black;
   border-radius: 5px;
 }
+
+.marker-label-clicked{
+  width: 150px;
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border: 2px solid #3cbc8d;
+  border-radius: 5px;
+}
+
 .marker-label p{
+  font-size: 15px;
   text-align: center;
 }
+

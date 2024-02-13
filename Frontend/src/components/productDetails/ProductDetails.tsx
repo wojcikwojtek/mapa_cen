@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import useProductDetails from '../../hooks/useProductDetails';
 import { FaCrown } from "react-icons/fa6";
 import ProductPrices from './productPrices';
-import MapaComponentNew, { Position } from './MapaComponentNew';
+import MapComponent, { Position } from './MapComponent';
 import { useEffect, useState } from 'react';
 import useProductPrices from '../../hooks/useProductPrices';
 import useUserStore from '../../store';
@@ -19,39 +19,41 @@ const handleSearch = (address:string) => {
   .then(response => {
     const pierwszyWynik = response.data.results[0];
 
-    // Wyświetl współrzędne geograficzne
     if (pierwszyWynik) {
-      console.log('Współrzędne geograficzne:', pierwszyWynik.position);
+      console.log('coordinates:', pierwszyWynik.position);
       return pierwszyWynik.position;
     } else {
-      console.log('Nie znaleziono wyników.');
+      console.log('any results no found');
     }
   })
   .catch(error => {
-    console.error('Błąd podczas wyszukiwania:', error);
+    console.error('error while searching', error);
   });
 };
 
 export interface Pointer{
   position:Position;
+  price:number;
   name:string;
 }
 
 const ProductDetails = () => {
     const {productId}=useParams();
     const userStore=useUserStore();
-    const {data,isLoading}=useProductDetails(parseInt(productId!));
+    const {data}=useProductDetails(parseInt(productId!));
     const regionId=userStore.globalSelectedRegionId;
     const region=userStore.globalSelectedRegion;
   const currentCity = mapOfRegionCors.find(city => city.name == region);
     const productPrices =useProductPrices(parseInt(productId!), regionId);
-
-    // const [selectedCity,setSelectedCity]=useState(currentCity);
-    // const [selectedProductPrices,setSelectedProductPrices]=useState(currentCity);
-  // const [run,setRun]=useState(false);
+     const [blockMap,setBlockMap]=useState(false);
   const [markers,setMarkers]=useState<Pointer[]>([]);
   
   useEffect(()=>{
+    if(blockMap){
+      setBlockMap(false);
+      return;
+    }
+
     if(!productPrices.isLoading&&productPrices.data&&currentCity?.name){
       const temp: Pointer[] = [];
       const promises = productPrices.data.map(async (price) => {
@@ -59,7 +61,7 @@ const ProductDetails = () => {
         if (list[0] === currentCity.name) {
           const position:Position = await handleSearch(price.shopAddress).then(data=>data);
           console.log("pozycja"+position.lat);
-          temp.push({position:position,name:price.shopAddress.substring(list[0].length)});
+          temp.push({position:position,price:price.priceValue,name:price.shopAddress.substring(list[0].length)});
         }
         Promise.all(promises).then(() => {
           console.log("temp"+temp[0]);
@@ -68,7 +70,6 @@ const ProductDetails = () => {
       });
     }
   },[productPrices.data,currentCity?.name])
-  // },[productPrices.data])
 
 
 
@@ -92,12 +93,11 @@ const ProductDetails = () => {
       <h2 style={{width:'100%',textAlign:'center'}} >Mapa cen</h2>
       
       {(data &&currentCity&&!productPrices.isLoading&&productPrices.data&&markers.length>0)&&
-         <MapaComponentNew  currentCity={currentCity} newMarkers={markers}/>  
+         <MapComponent  currentCity={currentCity} newMarkers={markers}/>  
         }
     </div>
     
-    <ProductPrices  productId={productId!}/>
-    {/* <ProductPrices updateComponent={()=>productPrices.refetch()} productId={productId!}/> */}
+    <ProductPrices  productId={productId!} blockMapRefetching={()=>setBlockMap(true)}/>
     </section>
     </main>
   )
