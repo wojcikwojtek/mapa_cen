@@ -41,6 +41,7 @@ namespace MapaCenBackend.Services
                     }
                 }
             }
+            conn.Close();
             return prices;
         }
 
@@ -72,6 +73,7 @@ namespace MapaCenBackend.Services
                     }
                 }
             }
+            conn.Close();
             return prices;
         }
 

@@ -36,9 +36,11 @@ namespace MapaCenBackend.Controllers
                         {
                             if (loginRequest.password == paswd)
                             {
+                                conn.Close();
                                 return new AuthResponse(userId,loginRequest.username, true, idRegionu, isAdmin);
                             }
                         }
+                        conn.Close();
                         return new AuthResponse(userId, loginRequest.username, false, idRegionu, false);
                     }
                 }
@@ -69,6 +71,7 @@ namespace MapaCenBackend.Controllers
                     // Wykonaj zapytanie
                     cmd.ExecuteNonQuery();
                 }
+                conn.Close();
             }
             catch (Exception ex)
             {

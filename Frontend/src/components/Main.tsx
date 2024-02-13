@@ -2,6 +2,7 @@ import useUserStore from '../store';
 import { Link } from 'react-router-dom';
 import useSearchProducts from '../hooks/useSearchProducts';
 import StartingPage from './StartingPage';
+import useProductDetails from '../hooks/useProductDetails';
 
 
 
@@ -14,12 +15,16 @@ const Main =  () => {
     
       {((data?.products.length||0) > 0)&&userStore.searchProduct  ?
       <>
-      <h2>Find Products:</h2>
+      <h2 id = "findProd">Find Products:</h2>
       {data?.products &&
       data.products.map((product) => (
         <Link to={"/productDetail/"+product.productId} key={product.productId}style={{textDecoration:'none'}}>
-          <p style={{marginTop:'10px',cursor:'pointer'}}>{product.productName}</p>
-          </Link>
+        <div id="searchedProd">
+          
+          <p style={{cursor:'pointer'}}>{product.productName}</p>
+
+        </div>
+        </Link>
       ))}
       </>
       :

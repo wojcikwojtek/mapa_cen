@@ -56,6 +56,7 @@ namespace MapaCenBackend.Services
                     }
                 }
             }
+            conn.Close();
             return comments;
         }
 

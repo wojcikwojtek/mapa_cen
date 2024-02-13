@@ -10,13 +10,16 @@ const StartingPage = () => {
     <div className='mostViewedWrapper'> 
     <h1>Najpopularniejsze Produkty</h1>
     {/* {products.data?.products.map(product=> */}
-        {products.data?.products.map(product=>    
-        <div className='mostViewedItem'>
+        {products.data?.products.map((product,index)=>    
+        
         <Link to={"/productDetail/"+product.productId} key={product.productId} style={{textDecoration:'none'}}>
-        <p>{product.productName}</p>
+        <div className='mostViewedItem'>
+        <p key={index}>{product.productName}</p>
+        
+        <img  src={`../public/images/${product.productName}.png`} alt={product.productName}/>
+        </div>
         </Link>
-        <img  src={`../public/images/${product.productName}.png`} alt="empty"/>
-        </div>)}
+        )}
     </div>
   )
 }

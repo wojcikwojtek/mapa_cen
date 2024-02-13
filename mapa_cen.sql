@@ -60,7 +60,7 @@ CREATE TABLE `comments` (
   KEY `user_id1_idx` (`user_id`),
   CONSTRAINT `price_id1` FOREIGN KEY (`price_id`) REFERENCES `prices` (`price_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_id1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +69,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (1,1,1,'2023-01-01 12:00:00','dupa','\\Images\\pomidor.png'),(2,2,3,'2024-01-16 12:19:41','Kamil paruwa',NULL);
+INSERT INTO `comments` VALUES (1,1,1,'2023-01-01 12:00:00','dupa','\\Images\\pomidor.png'),(2,2,3,'2024-01-16 12:19:41','Kamil paruwa',NULL),(3,3,3,'2024-02-10 13:15:40','Nie dajcie się nabrać, scam',NULL),(4,4,4,'2023-11-15 12:18:20','XD??????',NULL),(5,5,2,'2022-11-29 08:20:19','Sprzedawca połamał mi kartę płatniczą! NIE POLECAM SKLEPU, ale udka z kurczaka w sumie dobre.',NULL),(6,12,4,'2024-02-10 13:57:20','Fiufiufiufiu ekstra',NULL),(7,20,3,'2024-02-06 13:00:15','No cebulka fresz do jajówy jak znalazł, nigdzie w okolicy nie ma takiej fresz cebulki 10/10',NULL),(8,22,2,'2024-02-06 15:28:17','No trochę za sucha ta sucha krakowska, więc no łapka w dół niestety. Musiała być nieświeża, jestem zawiedziony...',NULL),(9,27,3,'2024-02-01 17:15:02','Snickers jak snickers. Nie da się tego z... Zepsuć.',NULL),(10,29,2,'2024-02-10 14:01:15','Jaś Fasolaa',NULL),(11,29,4,'2024-02-10 13:25:18','Fasola była spleśniała!',NULL),(12,30,3,'2024-02-09 12:18:20','Szkoda, że nie lubię skisłego mleka.',NULL),(13,31,2,'2024-02-08 13:12:12','Moje ulubione słodycze!!!!!!!!',NULL),(14,1,1,'2024-02-12 21:14:07','asdsada','\\Images\\1.jpg'),(15,15,1,'2024-02-13 11:53:30','Kraków jest fajny',NULL),(16,15,1,'2024-02-13 11:53:56','Kraków zdjęcie','\\Images\\2.jpg');
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +92,7 @@ CREATE TABLE `prices` (
   KEY `region_id_idx` (`region_id`),
   CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `region_id` FOREIGN KEY (`region_id`) REFERENCES `region` (`id_regionu`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +101,7 @@ CREATE TABLE `prices` (
 
 LOCK TABLES `prices` WRITE;
 /*!40000 ALTER TABLE `prices` DISABLE KEYS */;
-INSERT INTO `prices` VALUES (1,1,'Katowice ul. Mariacka 51','2023-01-01 12:00:00',5.39,34),(2,1,'Gliwice ul. Akademicka 16','2020-01-01 12:11:00',4.99,33),(3,10,'Gliwce ul. Tarnogórska 20','2023-11-20 11:21:11',110.49,33),(4,10,'Gliwce ul. Akademicka 16','2023-11-15 11:21:11',70.49,33),(5,20,'Gliwce ul. Akademicka 16','2022-11-15 11:21:11',18.59,33),(6,20,'Gliwce ul. Tarnogórska 20','2020-05-15 11:21:11',11.59,33),(7,1,'Zabrze ul.Budowlana 67','2023-12-01 12:00:00',4.49,32);
+INSERT INTO `prices` VALUES (1,1,'Katowice ul. Mariacka 51','2023-01-01 12:00:00',5.39,34),(2,1,'Gliwice ul. Akademicka 16','2020-01-01 12:11:00',4.99,33),(3,10,'Gliwice ul. Tarnogórska 20','2023-11-20 11:21:11',110.49,33),(4,10,'Gliwice ul. Akademicka 16','2023-11-15 11:21:11',70.49,33),(5,20,'Gliwice ul. Akademicka 16','2022-11-15 11:21:11',18.59,33),(6,20,'Gliwice ul. Tarnogórska 20','2020-05-15 11:21:11',11.59,33),(7,1,'Zabrze ul.Budowlana 67','2023-12-01 12:00:00',4.49,32),(8,15,'Mikołów ul. Gliwicka 3','2024-02-08 12:45:48',20,12),(9,13,'Katowice ul. Śląska 34C','2024-02-03 15:45:41',3,34),(10,24,'Gliwice ul. Bojkowska 108','2023-12-31 23:59:59',5,33),(11,5,'Gliwce ul. Tarnogórska 20','2024-02-08 16:12:06',3,33),(12,12,'Zabrze ks. Skargi 5a','2024-02-10 13:12:02',68,32),(13,14,'Poznań ul. Święty Marcin 24','2023-07-05 19:18:27',2,39),(14,18,'Poznań ul. Święty Marcin 24','2024-01-17 19:15:22',3,39),(15,1,'Kraków ul. Stradomska 9','2024-02-10 12:59:13',2,15),(16,2,'Piotrków Trybunalski ul. Sulejowska 10','2024-02-09 14:23:45',4,13),(17,16,'Wrocław ul. Świętokrzyska 32','2024-02-08 08:15:30',7,1),(18,4,'Łódź ul. Przędzalniana 62','2024-02-07 16:55:22',4,12),(19,5,'Grudziądz ul. Legionów 46','2024-02-06 10:30:00',3,5),(20,6,'Toruń ul. Chełmińska 22','2024-02-05 09:12:18',1,6),(21,7,'Krosno ul. Tysiąclecia 1','2024-02-04 14:10:05',9,24),(22,8,'Przemyśl ul. Waleriana Łukasińskiego 14','2024-02-03 11:45:33',10,23),(23,9,'Gdańsk ul. Zawodników 4','2024-02-02 18:20:47',0,29),(24,10,'Gdynia ul. Plac Konstytucji 3','2024-02-01 07:30:15',41,30),(25,11,'Olsztyn ul. Władysława Jagiełły 2','2024-01-31 14:05:10',29,38),(26,12,'Katowice ul. Skowronków 1','2024-01-30 19:45:55',72,34),(27,13,'Warszawa ul. Szczęśliwicka 6A','2024-01-29 22:18:40',2,20),(28,22,'Chełm ul. Śląska 2','2024-01-28 11:11:11',12,8),(29,24,'Kraków ul. Zwierzyniecka 29','2024-01-27 13:20:00',4,15),(30,17,'Tarnów ul. Mickiewicza 27','2024-01-22 14:55:00',2,17),(31,15,'Katowice ul. Gliwicka 52','2024-02-08 12:13:48',20,34),(32,1,'Katowice ul. Mariacka 8','2024-02-12 21:15:31',5,34),(33,16,'Katowice ul. Mariacka 8','2024-02-13 11:17:39',3.44,34),(34,16,'Gliwice ul. Akademicka 16','2024-02-13 11:18:45',3.99,33),(35,17,'Warszawa ul. Wawelska 46','2024-02-13 11:55:30',2.54,20);
 /*!40000 ALTER TABLE `prices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +121,7 @@ CREATE TABLE `products` (
   UNIQUE KEY `product_name_UNIQUE` (`product_name`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,7 +151,7 @@ CREATE TABLE `ratings` (
   KEY `user_id_idx` (`user_id`),
   CONSTRAINT `price_id` FOREIGN KEY (`price_id`) REFERENCES `prices` (`price_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +160,7 @@ CREATE TABLE `ratings` (
 
 LOCK TABLES `ratings` WRITE;
 /*!40000 ALTER TABLE `ratings` DISABLE KEYS */;
-INSERT INTO `ratings` VALUES (1,1,1,1),(2,7,3,1),(3,2,3,1);
+INSERT INTO `ratings` VALUES (2,7,3,1),(3,2,3,1),(15,1,1,1),(16,32,1,1),(17,15,1,1);
 /*!40000 ALTER TABLE `ratings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +208,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username_UNIQUE` (`username`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -254,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-23 15:12:32
+-- Dump completed on 2024-02-13 12:09:16

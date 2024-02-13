@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProductItem from './ProductItem';
-import usePowiaty from '../../hooks/usePowiaty';
+import useRegions from '../../hooks/useRegions';
 import useProductPrices from '../../hooks/useProductPrices';
 import React from 'react';
 import useUserStore from '../../store';
@@ -9,67 +9,77 @@ import AddPriceForm from './AddPriceForm';
 
 interface Props{
     productId:string;
+    // updateComponent:()=>void;
 }
 
 const ProductPrices = ({productId}:Props) => {
-    const [selectedPowiat,setSelectedPowiat]=useState(0);
+    const [selectedRegion,setSelectedRegion]=useState(0);
     const [showAddPriceForm,setShowAddPriceForm]=useState(false);
+    const [reload,setReload]=useState(false);
     const userStore=useUserStore();
     const provinceData =useProvinces();
-    const productPrices =useProductPrices(parseInt(productId!),selectedPowiat);
+    const productPrices =useProductPrices(parseInt(productId!),selectedRegion);
     const [selectedProvince,setSelectedProvince]=useState(provinceData.data?.
         find(province=>province.id==userStore.userRegion)?.name||'');
-        const [powiaty,setPowiaty]=useState(userStore.userRegion);
-      const powiatData =usePowiaty(powiaty);
+        const [regions,setRegions]=useState(userStore.userRegion);
+      const regionData =useRegions(regions);
 
+
+      useEffect(()=>{
+        productPrices.refetch();
+      },[reload]);
 
       const handleBack=()=>{
-        if(selectedPowiat!=0){
-          setSelectedPowiat(0);
+        if(selectedRegion!=0){
+          setSelectedRegion(0);
         }
         else{
           setSelectedProvince('');
         }
       }
 
-      const handlePoviatChange=(powiatName:string,powiatId:number)=>{
-        setSelectedPowiat(powiatId);
-            userStore.setglobalSelectedPowiat(powiatName);
-      // console.log(userStore.globalSelectedPowiat);
+      const handlePoviatChange=(regionName:string,regionId:number)=>{
+        setSelectedRegion(regionId);
+            userStore.setglobalSelectedRegion(regionName);
+            userStore.setglobalSelectedRegionId(regionId);
+            // updateComponent();
       }
 
-     
+    // if(productPrices.isRefetching){
+      // return (<div>refetch</div>);
+    // } 
+
   return (
     <div className='pricesWrapper'>
     <div className='productPrices'>
     {selectedProvince?
     <>
     <div className='singleProvince'>
-       <span>{selectedProvince}  {selectedPowiat? 
-       `powiat ${powiatData.data?.find(powiat=>powiat.id==selectedPowiat)?.name}`:''}
+       <span>{selectedProvince}  {selectedRegion? 
+       `powiat ${regionData.data?.find(powiat=>powiat.id==selectedRegion)?.name}`:''}
        </span>
       <button onClick={handleBack}>
-        powrót
+        Powrót
       </button>
     </div>
 
-    {selectedPowiat ?
+    {selectedRegion ?
     <div className='priceItems'>
-    {productPrices.data?.length !=0 ?
+    {(productPrices.data?.length !=0)&&!productPrices.isRefetching ?
     <>
     {productPrices.data?.map(price=>
-     <ProductItem key={price.priceId} regionId={selectedPowiat} priceInfo={price} updateComponent={()=>{ProductPrices.refetch();}}/>
+     <ProductItem key={price.priceId} regionId={selectedRegion} priceInfo={price} updateComponent={()=>{ProductPrices.refetch();}}/>
     )}
     </>
     :
-    <h4 style={{marginTop:'20px'}}>Ten Produkt nie ma aktualnie żadnych wpisów w tym Powiecie</h4>
+    <h4 style={{marginTop:'20px'}}>Ten produkt nie ma aktualnie żadnych wpisów w tym powiecie</h4>
     }
     </div>
     :
     <div>
-    {powiatData.data?.map(powiat=>
-    <div className='listItem' key={powiat.id} style={{cursor:'pointer'}} onClick={()=>handlePoviatChange(powiat.name,powiat.id)}>
-    {powiat.name}
+    {regionData.data?.map(region=>
+    <div className='listItem' key={region.id} style={{cursor:'pointer'}} onClick={()=>handlePoviatChange(region.name,region.id)}>
+    {region.name}
     </div>
     )}
     </div>
@@ -84,7 +94,7 @@ const ProductPrices = ({productId}:Props) => {
         <div className='province' key={index}
          onClick={()=>{
           setSelectedProvince(province.name);
-          setPowiaty(province.id)}}>
+          setRegions(province.id)}}>
       {province.name}
         </div>
       ))}
@@ -92,13 +102,16 @@ const ProductPrices = ({productId}:Props) => {
     }
     </div>
 
+    {selectedRegion !=0 &&
      <button className='addNewPrice' onClick={()=>setShowAddPriceForm(true)}>
-     dodaj nową cenę dla tego produktu
+     Dodaj nową cenę dla tego produktu
      </button>
+    }
      
     {showAddPriceForm &&
     <div className='shadowWrapper'>
-    <AddPriceForm closeForm={()=>setShowAddPriceForm(false)}/>
+    <AddPriceForm update={()=>setReload(!reload)} selectedRegion={selectedRegion} 
+    productId={parseInt(productId)} closeForm={()=>setShowAddPriceForm(false)}/>
     </div>
     }
 

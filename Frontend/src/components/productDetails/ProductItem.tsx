@@ -93,7 +93,7 @@ const ProductItem = ({priceInfo,regionId,updateComponent}:Props) => {
   return (
     <div className='listItem' >
       <p style={{display:'flex',justifyContent:'',width:'100%',marginBottom:'5px'}}>
-       <span style={{marginRight:'10px'}}>2022-05-10 </span>
+       <span style={{marginRight:'10px'}}>{priceInfo.date.split(" ")[0]}</span>
        <span style={{marginRight:'10px'}}>cena {priceInfo.priceValue}zł</span>
        <div className='flexCenter' style={{marginRight:'10px'}}>
         <div style={{cursor:'pointer'}} onClick={handleLikeOpinionClick}><BiLike size={20}  color="green"/></div>
@@ -105,7 +105,7 @@ const ProductItem = ({priceInfo,regionId,updateComponent}:Props) => {
         </div>
       </p>
       <p>
-        address {priceInfo.shopAddress}
+         {priceInfo.shopAddress}
       </p>
 
       <div className='commentWrapper'>

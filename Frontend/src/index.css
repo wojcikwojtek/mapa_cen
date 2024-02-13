@@ -22,6 +22,8 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+    cursor: url("./img/kursor1.png"), auto;
+
 }
 
 nav{
@@ -34,10 +36,15 @@ nav{
 }
 
 .searchField{
-  width: 200px;
+  width: 500px;
   height: 50px;
   border: 3px solid black;
+  background-color: white;
   border-radius: 15px;
+}
+
+.searchField:hover{
+  background-color: #a1e1e6;
 }
 
 .userPanel{
@@ -85,6 +92,11 @@ transition: 0.1s;
 .userPopUp .notActive:hover{
   cursor:not-allowed;
   background-color: gray;
+}
+
+.priceItems{
+  overflow-y: scroll;
+  height: 400px;
 }
 
 .provincePopUp{
@@ -146,6 +158,41 @@ main h2{
   margin: 0 30px
 }
 
+#findProd
+{
+  margin-left: 40%;
+}
+#searchedProd
+{
+  margin-left: 40%;
+  width: 300px;
+  border:1px solid white;
+  border-radius: 5px;
+  cursor:pointer;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  background-color: #78bfd6;
+  transition: all 0.5s ease-in-out;
+}
+
+#searchedProd:hover
+{
+  background-color: #a1e1e6;
+  border-radius: 20px;
+  transition: all 0.5s ease-in-out;
+}
+
+#searchedProd p
+{
+  color: black;
+  margin-left:15px;
+  margin-top: 5px;
+  justify-content: center;
+  align-items: center;
+}
+
 .productInfo{
   width: 300px;
   height: 100%;
@@ -154,6 +201,12 @@ main h2{
   flex-direction: column;
 }
 
+.addNewPrice:hover{
+  color:rgb(8, 22, 63);
+  background-color: #a1e1e6;
+  border-radius: 30px;
+  transition: all 0.5s ease-in-out;
+}
 .addNewPrice{
   width: 320px;
   height: 60px;
@@ -161,10 +214,11 @@ main h2{
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
-  background-color: #a1e1e6;
+  background-color: #82d3ed;
   border:2px solid black;
   font-size: 16px;
   cursor: pointer;
+  transition: all 0.5s ease-in-out;
 }
 
 .userPanel{
@@ -183,10 +237,6 @@ main h2{
 
 .returnToStart:hover{
   background-color: #bff1f5;
-}
-
-.addNewPrice:hover{
-  background-color: #888;
 }
 
 .pricesWrapper{
@@ -221,22 +271,26 @@ main h2{
 }
 
 
-
-
 .listItem{
   border: 1px solid black;
   width: 350px;
   padding:5px;
   margin: 10px auto;
   max-height: 650px;
-  overflow-y:auto
+  overflow-y:auto;
+  border-radius: 5px;
+}
+
+
+.listItem:hover{
+  background-color:azure;
 }
 
 .singleProvince{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 6%;
+  height: 20%;
   border: 1px solid black;
   border-radius: 5px;
   width: 350px;
@@ -245,17 +299,31 @@ main h2{
   margin: 0 auto;
 }
 
+
 .singleProvince > button{
   border:none;
   height:100%;
   font-size:17px;
   cursor:pointer;
-  background:none;
-  color:royalblue;
+  color:black;
+  border:1px solid white;
+  background-color: #82d3ed;
+  border-radius: 5px;
+  border-color: black;
+  transition: all 1s ease-in-out;
   z-index: 2;
 }
+
+.singleProvince > button:hover
+{
+  color:black;
+  background-color: #a1e1e6;
+  border-radius: 20px;
+  transition: all 1s ease-in-out;
+}
+
 .province:hover{
-  background-color: #888;
+  background-color: azure;
 }
 
 
@@ -269,6 +337,7 @@ main h2{
 }
 
 .commentWrapper{
+
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
@@ -276,8 +345,21 @@ main h2{
 }
 
 .commentWrapper p{
-  color:lightskyblue;
-  text-decoration: underline;
+  color:rgb(21, 33, 69);
+  padding:3px;
+  border:2px solid white;
+  background-color: #82d3ed;
+  border-radius: 5px;
+  border-color: #555;
+  transition: all 0.5s ease-in-out;
+  font-size: 15px;
+}
+
+.commentWrapper p:hover{
+  color:rgb(8, 22, 63);
+  background-color: #a1e1e6;
+  border-radius: 20px;
+  transition: all 0.5s ease-in-out;
 }
 
 .loginForm h1 {
@@ -345,9 +427,20 @@ input[type=submit]:hover {
   margin-right: 100px;
   color: black;
   /* background-color: #00ABE4; */
+  transition: all 1s ease-in-out;
   border-radius: 20px;
   padding: 10px;
   border:5px solid white;
+}
+
+.mostViewedItem:hover{
+  background-color:azure;
+  transition: all 1s ease-in-out;
+  border-radius: 30%;
+}
+
+.userPopUp div:hover{
+  background-color: darkgray;
 }
 
 .mostViewedItem img{
@@ -474,4 +567,19 @@ cursor: pointer;
   position: absolute;
   top: 0%;
   left: 0%;
+}
+
+.marker-label{
+  width: 150px;
+  height: 50px;
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.marker-label p{
+  text-align: center;
 }
